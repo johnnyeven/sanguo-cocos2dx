@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10003.png</key>
+            <key>p1_s2_attack10002.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{772,2},{158,182}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10004.png</key>
+            <key>p1_s2_attack10003.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{470,850},{166,188}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10005.png</key>
+            <key>p1_s2_attack10004.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{154,738},{180,200}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10006.png</key>
+            <key>p1_s2_attack10005.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{180,258}}</string>
@@ -82,7 +82,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10007.png</key>
+            <key>p1_s2_attack10006.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,262},{170,238}}</string>
@@ -95,7 +95,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10008.png</key>
+            <key>p1_s2_attack10007.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,738},{150,214}}</string>
@@ -108,7 +108,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10009.png</key>
+            <key>p1_s2_attack10008.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{640,188},{138,184}}</string>
@@ -121,7 +121,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10010.png</key>
+            <key>p1_s2_attack10009.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,502},{234,160}}</string>
@@ -134,7 +134,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10011.png</key>
+            <key>p1_s2_attack10010.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{164,502},{200,176}}</string>
@@ -147,7 +147,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10012.png</key>
+            <key>p1_s2_attack10011.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{628,2},{142,184}}</string>
@@ -160,7 +160,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10013.png</key>
+            <key>p1_s2_attack10012.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{494,196},{144,186}}</string>
@@ -173,7 +173,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10014.png</key>
+            <key>p1_s2_attack10013.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{470,658},{144,190}}</string>
@@ -186,7 +186,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10015.png</key>
+            <key>p1_s2_attack10014.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{484,2},{142,192}}</string>
@@ -199,7 +199,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10016.png</key>
+            <key>p1_s2_attack10015.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{336,704},{132,196}}</string>
@@ -212,7 +212,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10017.png</key>
+            <key>p1_s2_attack10016.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{340,2},{142,198}}</string>
@@ -225,7 +225,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10018.png</key>
+            <key>p1_s2_attack10017.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{174,262},{172,198}}</string>
@@ -238,7 +238,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10019.png</key>
+            <key>p1_s2_attack10018.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{184,2},{154,198}}</string>
@@ -251,7 +251,7 @@
                 <key>sourceSize</key>
                 <string>{1024,1024}</string>
             </dict>
-            <key>p1_s2_attack10020.png</key>
+            <key>p1_s2_attack10019.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{342,462},{144,194}}</string>

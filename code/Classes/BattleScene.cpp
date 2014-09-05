@@ -1,4 +1,5 @@
 #include "BattleScene.h"
+#include "characters/Hero.h"
 #include "json/rapidjson.h"
 #include "json/document.h"
 
@@ -43,12 +44,18 @@ bool BattleScene::init()
 	
 	loadRoleAnimation("images/roles/p1_s2/p1_s2.json");
 	
-	CCAnimate* animate = CCAnimate::create(CCAnimationCache::getInstance()->getAnimation("stand"));
+	auto s = Hero::create();
+	addChild(s);
+	s->setPosition(960 / 2, 640 / 2);
+	s->setAction(RoleAction::ATTACK1);
+	
+	/*
+	CCAnimate* animate = CCAnimate::create(CCAnimationCache::getInstance()->getAnimation("wait"));
 	auto s = Sprite::create();
 	addChild(s);
 	s->setPosition(960 / 2, 640 / 2);
-	s->runAction(CCRepeatForever::create(animate));
-	
+	s->runAction(Sequence::create(animate, NULL));
+	*/
     return true;
 }
 
@@ -81,23 +88,23 @@ bool BattleScene::loadRoleAnimation(const std::string& filename)
 									animation.HasMember("delay") &&
 									animation.HasMember("restoreOriginalFrame"))
 								{
-									//log("load %s", animation["animateName"].GetString());
+									log("load %s", animation["animateName"].GetString());
 									SpriteFrameCache::getInstance()->addSpriteFramesWithFile(animation["plistFilePath"].GetString());
-									//log("plist %s", animation["plistFilePath"].GetString());
+									log("plist %s", animation["plistFilePath"].GetString());
 									CCAnimation* a = CCAnimation::create();
 									std::string format = animation["fileFormat"].GetString();
-									//log("format %s", format.c_str());
+									log("format %s", format.c_str());
 									for(int i = 0; i < (animation["frameTotal"].GetInt()); ++i)
 									{
 										a->addSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(StringUtils::format(format.c_str(), i)));
-										//log("add frame %s", StringUtils::format(format.c_str(), i).c_str());
+										log("add frame %s", StringUtils::format(format.c_str(), i).c_str());
 									}
 									a->setDelayPerUnit(animation["delay"].GetDouble());
-									//log("delay %f", animation["delay"].GetDouble());
+									log("delay %f", animation["delay"].GetDouble());
 									a->setRestoreOriginalFrame(animation["restoreOriginalFrame"].GetBool());
-									//log("restore %i", animation["restoreOriginalFrame"].GetBool());
+									log("restore %i", animation["restoreOriginalFrame"].GetBool());
 									CCAnimationCache::getInstance()->addAnimation(a, animation["animateName"].GetString());
-									//log("end %s\n", animation["animateName"].GetString());
+									log("end %s\n", animation["animateName"].GetString());
 								}
 							}
 						}
