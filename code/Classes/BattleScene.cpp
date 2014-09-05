@@ -47,7 +47,7 @@ bool BattleScene::init()
 	auto s = Hero::create();
 	addChild(s);
 	s->setPosition(960 / 2, 640 / 2);
-	s->setAction(RoleAction::ATTACK1);
+	s->setAction(RoleAction::RUN);
 	
 	/*
 	CCAnimate* animate = CCAnimate::create(CCAnimationCache::getInstance()->getAnimation("wait"));
