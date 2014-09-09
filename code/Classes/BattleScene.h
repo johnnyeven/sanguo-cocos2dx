@@ -24,7 +24,7 @@ public:
     float getMapHeight() { return _mapHeight; };
 	Joystick* getJoystick() { return _joystick; };
     void setPlayer(Hero*);
-	Point& getScreenPosition(float x, float y);
+	const Point& getScreenPosition(float x, float y);
     Hero* getPlayer() { return _player; };
 	Rect* getLimitArea() { return _limitArea; };
     

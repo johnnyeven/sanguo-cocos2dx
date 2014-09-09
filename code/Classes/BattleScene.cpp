@@ -278,7 +278,7 @@ void BattleScene::setPlayer(Hero *value)
     _player = value;
 }
 
-Point& BattleScene::getScreenPosition(float x, float y)
+const Point& BattleScene::getScreenPosition(float x, float y)
 {
 	Point start = SceneCamera::getInstance()->getStart();
 	return Point(
