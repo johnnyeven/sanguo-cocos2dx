@@ -55,7 +55,7 @@ bool BattleScene::init()
     _foregroundLayer = Layer::create();
     addChild(_foregroundLayer);
 	_currentMapId = new std::string();
-	//_limitArea = new Rect(0, 0, 0, 0);
+	_limitArea = new Rect(0, 0, 0, 0);
     
     return true;
 }
@@ -63,8 +63,6 @@ bool BattleScene::init()
 void BattleScene::onEnter()
 {
     Layer::onEnter();
-	
-//	srand(time(0));
 	loadRoleAnimation("images/roles/p1_s2/p1_s2.json");
 //
 //    for(int i = 0; i < 20; ++i)
@@ -84,8 +82,6 @@ void BattleScene::onEnter()
 	*/
     
     loadMapConfig("images/maps/1001.json");
-    _mapWidth = 4000.f;
-    _mapHeight = 640.f;
     
     _joystick = Joystick::create("images/dPadTouchBg2.png", "images/dPadTouchBtn2.png");
     addChild(_joystick);
@@ -95,9 +91,9 @@ void BattleScene::onEnter()
     
     auto s = Hero::create();
     _characterLayer->addChild(s);
+    s->setAnchorPoint(Vec2(.5f, .35f));
 	s->setSpeed(250.f);
-	s->setWorldPosition(960 / 2, 640 / 2);
-    s->setPosition(960 / 2, 640 / 2);
+	s->setWorldPosition(_roleStartX, _roleStartY);
     s->setAction(RoleAction::STAND);
     setPlayer(s);
 	
@@ -124,11 +120,11 @@ void BattleScene::updateMap(float delta)
 {
 	auto camera = SceneCamera::getInstance();
 	Point start = camera->getStart();
-	log("x=%f, y=%f", start.x, start.y);
+//	log("x=%f, y=%f", start.x, start.y);
 
-	_backgroundLayer->setPosition(-start.x, -start.y);
+	_backgroundLayer->setPosition(-start.x * BACKGROUND_OFFSETRATE, -start.y);
 	_midgroundLayer->setPosition(-start.x, -start.y);
-	_foregroundLayer->setPosition(-start.x, -start.y);
+	_foregroundLayer->setPosition(-start.x * FOREGROUND_OFFSETRATE, -start.y);
 }
 
 void BattleScene::loadMapConfig(const std::string& filename)
@@ -146,13 +142,17 @@ void BattleScene::loadMapConfig(const std::string& filename)
 					doc.HasMember("width") &&
 					doc.HasMember("height") &&
 					doc.HasMember("minY") &&
-					doc.HasMember("maxY"))
+                    doc.HasMember("maxY") &&
+                    doc.HasMember("startX") &&
+                    doc.HasMember("startY"))
 				{
 					_mapWidth = doc["width"].GetDouble();
 					_mapHeight = doc["height"].GetDouble();
+                    _roleStartX = doc["startX"].GetDouble();
+                    _roleStartY = doc["startY"].GetDouble();
 					float minY = doc["minY"].GetDouble();
 					float maxY = doc["maxY"].GetDouble();
-					//_limitArea->setRect(0, minY, _mapWidth, maxY - minY);
+					_limitArea->setRect(0, minY, _mapWidth, maxY - minY);
 					loadMap(doc["plistFile"].GetString());
 				}
 				else
@@ -191,12 +191,41 @@ bool BattleScene::loadMap(const std::string& id)
         auto hou = Sprite::createWithSpriteFrame(cache->getSpriteFrameByName("hou.png"));
         hou->setAnchorPoint(Vec2(0.f, 0.f));
         _backgroundLayer->addChild(hou);
+        Size s = hou->getContentSize();
+        int w = (int)ceilf(_mapWidth * BACKGROUND_OFFSETRATE / s.width);
+        for(int i = 1; i < w; ++i)
+        {
+            auto hou = Sprite::createWithSpriteFrame(cache->getSpriteFrameByName("hou.png"));
+            hou->setAnchorPoint(Vec2(0.f, 0.f));
+            hou->setPosition(i * s.width, 0);
+            _backgroundLayer->addChild(hou);
+        }
+        
         auto zhong = Sprite::createWithSpriteFrame(cache->getSpriteFrameByName("zhong.png"));
         zhong->setAnchorPoint(Vec2(0.f, 0.f));
         _midgroundLayer->addChild(zhong);
+        s = zhong->getContentSize();
+        w = (int)ceilf(_mapWidth / s.width);
+        for(int i = 1; i < w; ++i)
+        {
+            auto zhong = Sprite::createWithSpriteFrame(cache->getSpriteFrameByName("zhong.png"));
+            zhong->setAnchorPoint(Vec2(0.f, 0.f));
+            zhong->setPosition(i * s.width, 0);
+            _midgroundLayer->addChild(zhong);
+        }
+        
         auto qian = Sprite::createWithSpriteFrame(cache->getSpriteFrameByName("qian.png"));
         qian->setAnchorPoint(Vec2(0.f, 0.f));
         _foregroundLayer->addChild(qian);
+        s = qian->getContentSize();
+        w = (int)ceilf(_mapWidth * FOREGROUND_OFFSETRATE / s.width);
+        for(int i = 1; i < w; ++i)
+        {
+            auto qian = Sprite::createWithSpriteFrame(cache->getSpriteFrameByName("qian.png"));
+            qian->setAnchorPoint(Vec2(0.f, 0.f));
+            qian->setPosition(i * s.width, 0);
+            _foregroundLayer->addChild(qian);
+        }
         
         return true;
     }
@@ -277,12 +306,11 @@ void BattleScene::setPlayer(Hero *value)
 {
     _player = value;
 }
-/*
-const Point& BattleScene::getScreenPosition(float x, float y)
+
+Point BattleScene::getScreenPosition(float x, float y)
 {
 	Point start = SceneCamera::getInstance()->getStart();
 	return Point(
 		x - start.x,
 		x - start.y);
 }
-*/

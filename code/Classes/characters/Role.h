@@ -20,12 +20,14 @@ public:
 	RoleAction getAction() { return _action; };
 	void setAction(RoleAction);
 	Point& getWorldPosition() { return _worldPosition; };
-	void setWorldPosition(const Point&);
+	void setWorldPosition(Point&);
 	void setWorldPosition(float x, float y);
     void setFocused(bool);
     bool getFocused() { return _isFocused; };
 	void setBackWalk(bool);
 	bool getBackWalk() { return _isBackWalk; };
+    
+    virtual void onEnter();
 protected:
 	Role(void);
 	~Role(void);

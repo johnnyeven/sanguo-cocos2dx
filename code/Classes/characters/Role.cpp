@@ -1,4 +1,5 @@
 #include "Role.h"
+#include "../BattleScene.h"
 
 Role::Role(void)
 {
@@ -14,6 +15,12 @@ Role::Role(void)
 
 Role::~Role(void)
 {
+}
+
+void Role::onEnter()
+{
+    Sprite::onEnter();
+    _scene = BattleScene::getInstance();
 }
 
 void Role::setSpeed(float value)
@@ -51,14 +58,26 @@ void Role::setAction(RoleAction value)
 	}
 }
 
-void Role::setWorldPosition(const Point& value)
+void Role::setWorldPosition(Point& value)
 {
+    Rect* limit = _scene->getLimitArea();
+    if(limit)
+    {
+        value.x = std::min(limit->getMaxX(), std::max(limit->getMinX(), value.x));
+        value.y = std::min(limit->getMaxY(), std::max(limit->getMinY(), value.y));
+    }
 	_worldPosition.x = value.x;
 	_worldPosition.y = value.y;
 }
 
 void Role::setWorldPosition(float x, float y)
 {
+    Rect* limit = _scene->getLimitArea();
+    if(limit)
+    {
+        x = std::min(limit->getMaxX(), std::max(limit->getMinX(), x));
+        y = std::min(limit->getMaxY(), std::max(limit->getMinY(), y));
+    }
 	_worldPosition.x = x;
 	_worldPosition.y = y;
 }

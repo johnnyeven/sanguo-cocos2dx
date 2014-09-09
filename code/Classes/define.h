@@ -2,6 +2,9 @@
 #define _DEFINE_H_
 #pragma once
 
+#define BACKGROUND_OFFSETRATE .5f
+#define FOREGROUND_OFFSETRATE 2.f
+
 enum RoleAction
 {
 	UNDEFINED,

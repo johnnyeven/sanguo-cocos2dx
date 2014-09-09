@@ -94,7 +94,7 @@ void SceneCamera::update(float delta)
 
 void SceneCamera::setStart(float x, float y)
 {
-    _start.x = std::max(std::min(x, _scene->getMapWidth()), 0.f);
+    _start.x = std::max(std::min(x, _scene->getMapWidth() - GlobalVars::scene_width), 0.f);
     _start.y = 0;
 }
 

@@ -4,6 +4,9 @@
 #include "cocos2d.h"
 class Joystick;
 class Hero;
+
+USING_NS_CC;
+
 class BattleScene : public cocos2d::Layer
 {
 public:
@@ -25,8 +28,8 @@ public:
 	Joystick* getJoystick() { return _joystick; };
     void setPlayer(Hero*);
     Hero* getPlayer() { return _player; };
-	//Rect* getLimitArea() { return _limitArea; };
-	//const Point& getScreenPosition(float x, float y);
+	Rect* getLimitArea() { return _limitArea; };
+	Point getScreenPosition(float x, float y);
     
     // implement the "static create()" method manually
     CREATE_FUNC(BattleScene);
@@ -37,7 +40,9 @@ private:
     std::string* _currentMapId;
     float _mapWidth;
 	float _mapHeight;
-	//Rect* _limitArea;
+    float _roleStartX;
+    float _roleStartY;
+	Rect* _limitArea;
     Layer* _backgroundLayer;
 	Layer* _midgroundLayer;
 	Layer* _characterLayer;

@@ -2,7 +2,7 @@
 #define _GLOBAL_CONFIG_H_
 #pragma once
 
-enum BehaviorMode;
+#include "define.h"
 
 class GlobalVars
 {

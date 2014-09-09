@@ -47,6 +47,44 @@ void HeroBehavior::update(float delta)
 				float x = p.x + _target->getSpeed() * delta;
 				_target->setWorldPosition(x, p.y);
 			}
+			else if(d == JoystickEnum::D_UP)
+			{
+				float y = p.y + _target->getSpeed() * delta;
+				_target->setWorldPosition(p.x, y);
+			}
+			else if(d == JoystickEnum::D_DOWN)
+			{
+				float y = p.y - _target->getSpeed() * delta;
+				_target->setWorldPosition(p.x, y);
+			}
+            else if(d == JoystickEnum::D_LEFT_UP)
+            {
+                _target->setBackWalk(true);
+				float x = p.x - _target->getSpeed() * delta;
+				float y = p.y + _target->getSpeed() * delta;
+				_target->setWorldPosition(x, y);
+            }
+            else if(d == JoystickEnum::D_LEFT_DOWN)
+            {
+                _target->setBackWalk(true);
+				float x = p.x - _target->getSpeed() * delta;
+				float y = p.y - _target->getSpeed() * delta;
+				_target->setWorldPosition(x, y);
+            }
+            else if(d == JoystickEnum::D_RIGHT_UP)
+            {
+                _target->setBackWalk(false);
+				float x = p.x + _target->getSpeed() * delta;
+				float y = p.y + _target->getSpeed() * delta;
+				_target->setWorldPosition(x, y);
+            }
+            else if(d == JoystickEnum::D_RIGHT_DOWN)
+            {
+                _target->setBackWalk(false);
+				float x = p.x + _target->getSpeed() * delta;
+				float y = p.y - _target->getSpeed() * delta;
+				_target->setWorldPosition(x, y);
+            }
 		}
 		else
 		{
@@ -77,9 +115,9 @@ void HeroBehavior::updatePosition(float delta)
 		}
 		else
 		{
-//			Point p = _scene->getScreenPosition(p.x, p.y);
-//			targetX = p.x;
-//			targetY = p.y;
+			Point p = _scene->getScreenPosition(p.x, p.y);
+			targetX = p.x;
+			targetY = p.y;
 		}
 
 		_target->setPosition(targetX, targetY);
