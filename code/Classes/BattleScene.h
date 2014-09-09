@@ -2,7 +2,7 @@
 #define __BATTLESCENE_H__
 
 #include "cocos2d.h"
-
+class Joystick;
 class Hero;
 class BattleScene : public cocos2d::Layer
 {
@@ -16,21 +16,31 @@ public:
     virtual void update(float delta);
     virtual void onEnter();
 
+	void loadMapConfig(const std::string&);
     bool loadMap(const std::string&);
+	void updateMap(float delta);
 	bool loadRoleAnimation(const std::string&);
     float getMapWidth() { return _mapWidth; };
+    float getMapHeight() { return _mapHeight; };
+	Joystick* getJoystick() { return _joystick; };
     void setPlayer(Hero*);
+	Point& getScreenPosition(float x, float y);
     Hero* getPlayer() { return _player; };
+	Rect* getLimitArea() { return _limitArea; };
     
     // implement the "static create()" method manually
     CREATE_FUNC(BattleScene);
 private:
 	static BattleScene* _instance;
-    
+    Joystick* _joystick;
     Hero* _player;
     std::string* _currentMapId;
     float _mapWidth;
+	float _mapHeight;
+	Rect* _limitArea;
     Layer* _backgroundLayer;
+	Layer* _midgroundLayer;
+	Layer* _characterLayer;
     Layer* _foregroundLayer;
 };
 

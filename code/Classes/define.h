@@ -17,6 +17,12 @@ enum RoleAction
 	WIN
 };
 
+enum BehaviorMode
+{
+	AUTO,
+	MANUAL
+};
+
 namespace GlobalConfig
 {
 	const std::string action[11] = {

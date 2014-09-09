@@ -16,6 +16,8 @@
 
 USING_NS_CC;
 
+class BattleScene;
+class Joystick;
 class HeroBehavior:
     public IBehavior
 {
@@ -24,10 +26,15 @@ public:
     virtual ~HeroBehavior(void);
     
     virtual void update(float delta);
+	void updatePosition(float delta);
     void setTarget(Hero*);
     Hero* getTarget() { return _target; };
 private:
     Hero* _target;
+	BattleScene* _scene;
+	Joystick* _joystick;
+	float _halfScreenWidth;
+	float _halfScreenHeight;
 };
 
 #endif /* defined(__Sanguo__HeroBehavior__) */

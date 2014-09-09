@@ -48,9 +48,22 @@ bool BattleScene::init()
     
     _backgroundLayer = Layer::create();
     addChild(_backgroundLayer);
+	_midgroundLayer = Layer::create();
+	addChild(_midgroundLayer);
+	_characterLayer = Layer::create();
+	addChild(_characterLayer);
     _foregroundLayer = Layer::create();
     addChild(_foregroundLayer);
+	_currentMapId = new std::string();
+	_limitArea = new Rect(0, 0, 0, 0);
     
+    return true;
+}
+
+void BattleScene::onEnter()
+{
+    Layer::onEnter();
+	
 //	srand(time(0));
 	loadRoleAnimation("images/roles/p1_s2/p1_s2.json");
 //
@@ -70,29 +83,25 @@ bool BattleScene::init()
 	s->runAction(Sequence::create(animate, NULL));
 	*/
     
-    loadMap("images/maps/1001.plist");
+    loadMapConfig("images/maps/1001.json");
     _mapWidth = 4000.f;
+    _mapHeight = 640.f;
+    
+    _joystick = Joystick::create("images/dPadTouchBg2.png", "images/dPadTouchBtn2.png");
+    addChild(_joystick);
+    _joystick->setPosition(Vec2(150,150));//設置初始位置
+    _joystick->setFailRadius(30);
+    _joystick->onRun();
     
     auto s = Hero::create();
-    _backgroundLayer->addChild(s);
+    _characterLayer->addChild(s);
+	s->setSpeed(250.f);
+	s->setWorldPosition(960 / 2, 640 / 2);
     s->setPosition(960 / 2, 640 / 2);
     s->setAction(RoleAction::STAND);
     setPlayer(s);
-    
-    SceneCamera::getInstance()->focusOn(s);
-    
-    auto joystick = Joystick::create("images/dPadTouchBg2.png", "images/dPadTouchBtn2.png");
-    addChild(joystick);
-    joystick->setPosition(Vec2(150,150));//設置初始位置
-    joystick->setFailRadius(30);
-    joystick->onRun();
-    
-    return true;
-}
-
-void BattleScene::onEnter()
-{
-    Layer::onEnter();
+	
+    SceneCamera::getInstance()->focusOn(_player);
     scheduleUpdate();
 }
 
@@ -101,6 +110,66 @@ void BattleScene::update(float delta)
     Layer::update(delta);
     
     SceneCamera::getInstance()->update(delta);
+	updateMap(delta);
+
+	if(_player)
+	{
+		_player->update(delta);
+	}
+
+	auto camera = SceneCamera::getInstance();
+}
+
+void BattleScene::updateMap(float delta)
+{
+	auto camera = SceneCamera::getInstance();
+	Point start = camera->getStart();
+	log("x=%f, y=%f", start.x, start.y);
+
+	_backgroundLayer->setPosition(-start.x, -start.y);
+	_midgroundLayer->setPosition(-start.x, -start.y);
+	_foregroundLayer->setPosition(-start.x, -start.y);
+}
+
+void BattleScene::loadMapConfig(const std::string& filename)
+{
+	if(filename.size() > 0)
+	{
+		Document doc;
+		if(FileUtils::getInstance()->isFileExist(filename))
+		{
+			std::string json = FileUtils::getInstance()->getStringFromFile(filename);
+			doc.Parse<rapidjson::kParseDefaultFlags>(json.c_str());
+			if(!doc.HasParseError())
+			{
+				if(doc.IsObject() && doc.HasMember("plistFile") &&
+					doc.HasMember("width") &&
+					doc.HasMember("height") &&
+					doc.HasMember("minY") &&
+					doc.HasMember("maxY"))
+				{
+					_mapWidth = doc["width"].GetDouble();
+					_mapHeight = doc["height"].GetDouble();
+					float minY = doc["minY"].GetDouble();
+					float maxY = doc["maxY"].GetDouble();
+					_limitArea->setRect(0, minY, _mapWidth, maxY - minY);
+					loadMap(doc["plistFile"].GetString());
+				}
+				else
+				{
+					log("json format error.");
+				}
+			}
+			else
+			{
+				log("GetParserError %s\n", doc.GetParseError());
+			}
+		}
+		else
+		{
+			log("file not exist");
+		}
+	}
 }
 
 bool BattleScene::loadMap(const std::string& id)
@@ -124,7 +193,7 @@ bool BattleScene::loadMap(const std::string& id)
         _backgroundLayer->addChild(hou);
         auto zhong = Sprite::createWithSpriteFrame(cache->getSpriteFrameByName("zhong.png"));
         zhong->setAnchorPoint(Vec2(0.f, 0.f));
-        _backgroundLayer->addChild(zhong);
+        _midgroundLayer->addChild(zhong);
         auto qian = Sprite::createWithSpriteFrame(cache->getSpriteFrameByName("qian.png"));
         qian->setAnchorPoint(Vec2(0.f, 0.f));
         _foregroundLayer->addChild(qian);
@@ -207,4 +276,12 @@ bool BattleScene::loadRoleAnimation(const std::string& filename)
 void BattleScene::setPlayer(Hero *value)
 {
     _player = value;
+}
+
+Point& BattleScene::getScreenPosition(float x, float y)
+{
+	Point start = SceneCamera::getInstance()->getStart();
+	return Point(
+		x - start.x,
+		x - start.y);
 }

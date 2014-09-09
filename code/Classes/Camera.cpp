@@ -14,6 +14,8 @@ SceneCamera* SceneCamera::_instance = nullptr;
 
 SceneCamera::SceneCamera(void)
 {
+	_focus = nullptr;
+	_scene = nullptr;
 	_cutStart = Vec2(0, 0);
     _start = Vec2(0, 0);
     _cameraView = Rect(0, 0, GlobalVars::scene_width, GlobalVars::scene_height);
@@ -49,6 +51,10 @@ void SceneCamera::setScene(BattleScene *scene)
 
 void SceneCamera::focusOn(Role *obj)
 {
+	if(_focus)
+	{
+		_focus->setFocused(false);
+	}
     if(obj)
     {
         obj->setFocused(true);

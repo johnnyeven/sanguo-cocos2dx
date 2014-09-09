@@ -6,11 +6,13 @@
 #include "define.h"
 
 USING_NS_CC;
-
+class BattleScene;
 class Role :
 	public Sprite
 {
 public:
+	float getSpeed() { return _speed; };
+	void setSpeed(float);
 	float getHealth() { return _health; };
 	void setHealth(float);
 	float getHealthMax() { return _healthMax; };
@@ -22,16 +24,21 @@ public:
 	void setWorldPosition(float x, float y);
     void setFocused(bool);
     bool getFocused() { return _isFocused; };
+	void setBackWalk(bool);
+	bool getBackWalk() { return _isBackWalk; };
 protected:
 	Role(void);
 	~Role(void);
 
 private:
     bool _isFocused;
+	bool _isBackWalk;
+	float _speed;
 	float _health;
 	float _healthMax;
 	RoleAction _action;
 	Point _worldPosition;
+	BattleScene* _scene;
 
 	void restoreOriginalAnimation();
 };

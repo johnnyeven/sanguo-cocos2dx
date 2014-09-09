@@ -1,8 +1,10 @@
 #include "AppDelegate.h"
 #include "BattleScene.h"
+#include "define.h"
 
 int GlobalVars::scene_width = 0;
 int GlobalVars::scene_height = 0;
+BehaviorMode GlobalVars::behavior_mode = BehaviorMode::MANUAL;
 
 USING_NS_CC;
 

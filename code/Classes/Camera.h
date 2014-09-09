@@ -10,7 +10,7 @@
 #define __IntoSpace__Camera__
 
 #include "cocos2d.h"
-#include "Role.h"
+#include "characters/Role.h"
 #include "BattleScene.h"
 
 USING_NS_CC;

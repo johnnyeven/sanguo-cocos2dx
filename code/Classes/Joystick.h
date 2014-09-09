@@ -38,6 +38,7 @@ public:
     static Joystick* create(std::string chassisPath,std::string dotPath);
     /** 初始化摇杆器（需要传入底盘和触点图片路径） */
     void initWithJoystick(std::string chassisPath,std::string dotPath);
+	JoystickEnum getDirection() { return _direction; };
 protected:
     /** 有效区域半径 */
     float _radius;
