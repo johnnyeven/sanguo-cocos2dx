@@ -1,6 +1,9 @@
 #include "AppDelegate.h"
 #include "BattleScene.h"
 
+int GlobalVars::scene_width = 0;
+int GlobalVars::scene_height = 0;
+
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {
@@ -23,6 +26,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 #endif
         director->setOpenGLView(glview);
     }
+    
+    auto s = glview->getFrameSize();
+    GlobalVars::scene_width = s.width;
+    GlobalVars::scene_height = s.height;
 
     // turn on display FPS
     director->setDisplayStats(true);

@@ -20,12 +20,14 @@ public:
 	Point& getWorldPosition() { return _worldPosition; };
 	void setWorldPosition(const Point&);
 	void setWorldPosition(float x, float y);
-
+    void setFocused(bool);
+    bool getFocused() { return _isFocused; };
 protected:
 	Role(void);
 	~Role(void);
 
 private:
+    bool _isFocused;
 	float _health;
 	float _healthMax;
 	RoleAction _action;

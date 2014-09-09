@@ -53,6 +53,11 @@ void Role::setWorldPosition(float x, float y)
 	_worldPosition.y = y;
 }
 
+void Role::setFocused(bool value)
+{
+    _isFocused = value;
+}
+
 void Role::restoreOriginalAnimation()
 {
 	setAction(RoleAction::STAND);

@@ -2,6 +2,9 @@
 #include "characters/Hero.h"
 #include "json/rapidjson.h"
 #include "json/document.h"
+#include "Joystick.h"
+#include "Camera.h"
+#include "characters/Hero.h"
 
 BattleScene* BattleScene::_instance = nullptr;
 
@@ -14,7 +17,8 @@ Scene* BattleScene::createScene()
     auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = BattleScene::create();
+    auto layer = BattleScene::getInstance();
+    SceneCamera::getInstance()->setScene(layer);
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -41,13 +45,22 @@ bool BattleScene::init()
     {
         return false;
     }
-	
+    
+    _backgroundLayer = Layer::create();
+    addChild(_backgroundLayer);
+    _foregroundLayer = Layer::create();
+    addChild(_foregroundLayer);
+    
+//	srand(time(0));
 	loadRoleAnimation("images/roles/p1_s2/p1_s2.json");
-	
-	auto s = Hero::create();
-	addChild(s);
-	s->setPosition(960 / 2, 640 / 2);
-	s->setAction(RoleAction::RUN);
+//
+//    for(int i = 0; i < 20; ++i)
+//    {
+//        auto s = Hero::create();
+//        addChild(s);
+//        s->setPosition(rand() % 960, rand() % 640);
+//        s->setAction(RoleAction::RUN);
+//    }
 	
 	/*
 	CCAnimate* animate = CCAnimate::create(CCAnimationCache::getInstance()->getAnimation("wait"));
@@ -56,7 +69,69 @@ bool BattleScene::init()
 	s->setPosition(960 / 2, 640 / 2);
 	s->runAction(Sequence::create(animate, NULL));
 	*/
+    
+    loadMap("images/maps/1001.plist");
+    _mapWidth = 4000.f;
+    
+    auto s = Hero::create();
+    _backgroundLayer->addChild(s);
+    s->setPosition(960 / 2, 640 / 2);
+    s->setAction(RoleAction::STAND);
+    setPlayer(s);
+    
+    SceneCamera::getInstance()->focusOn(s);
+    
+    auto joystick = Joystick::create("images/dPadTouchBg2.png", "images/dPadTouchBtn2.png");
+    addChild(joystick);
+    joystick->setPosition(Vec2(150,150));//設置初始位置
+    joystick->setFailRadius(30);
+    joystick->onRun();
+    
     return true;
+}
+
+void BattleScene::onEnter()
+{
+    Layer::onEnter();
+    scheduleUpdate();
+}
+
+void BattleScene::update(float delta)
+{
+    Layer::update(delta);
+    
+    SceneCamera::getInstance()->update(delta);
+}
+
+bool BattleScene::loadMap(const std::string& id)
+{
+    if(id.size() > 0)
+    {
+        auto cache = SpriteFrameCache::getInstance();
+        if (_currentMapId && _currentMapId->size() > 0)
+        {
+            cache->removeSpriteFramesFromFile(*_currentMapId);
+        }
+        else
+        {
+            _currentMapId = new std::string();
+        }
+        cache->addSpriteFramesWithFile(id);
+        _currentMapId->assign(id);
+        
+        auto hou = Sprite::createWithSpriteFrame(cache->getSpriteFrameByName("hou.png"));
+        hou->setAnchorPoint(Vec2(0.f, 0.f));
+        _backgroundLayer->addChild(hou);
+        auto zhong = Sprite::createWithSpriteFrame(cache->getSpriteFrameByName("zhong.png"));
+        zhong->setAnchorPoint(Vec2(0.f, 0.f));
+        _backgroundLayer->addChild(zhong);
+        auto qian = Sprite::createWithSpriteFrame(cache->getSpriteFrameByName("qian.png"));
+        qian->setAnchorPoint(Vec2(0.f, 0.f));
+        _foregroundLayer->addChild(qian);
+        
+        return true;
+    }
+    return false;
 }
 
 bool BattleScene::loadRoleAnimation(const std::string& filename)
@@ -127,4 +202,9 @@ bool BattleScene::loadRoleAnimation(const std::string& filename)
 	}
 
 	return false;
+}
+
+void BattleScene::setPlayer(Hero *value)
+{
+    _player = value;
 }
