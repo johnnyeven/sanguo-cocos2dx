@@ -77,9 +77,9 @@ void HeroBehavior::updatePosition(float delta)
 		}
 		else
 		{
-			Point p = _scene->getScreenPosition(p.x, p.y);
-			targetX = p.x;
-			targetY = p.y;
+//			Point p = _scene->getScreenPosition(p.x, p.y);
+//			targetX = p.x;
+//			targetY = p.y;
 		}
 
 		_target->setPosition(targetX, targetY);

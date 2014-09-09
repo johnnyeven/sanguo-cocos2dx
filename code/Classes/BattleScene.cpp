@@ -55,7 +55,7 @@ bool BattleScene::init()
     _foregroundLayer = Layer::create();
     addChild(_foregroundLayer);
 	_currentMapId = new std::string();
-	_limitArea = new Rect(0, 0, 0, 0);
+	//_limitArea = new Rect(0, 0, 0, 0);
     
     return true;
 }
@@ -152,7 +152,7 @@ void BattleScene::loadMapConfig(const std::string& filename)
 					_mapHeight = doc["height"].GetDouble();
 					float minY = doc["minY"].GetDouble();
 					float maxY = doc["maxY"].GetDouble();
-					_limitArea->setRect(0, minY, _mapWidth, maxY - minY);
+					//_limitArea->setRect(0, minY, _mapWidth, maxY - minY);
 					loadMap(doc["plistFile"].GetString());
 				}
 				else
@@ -277,7 +277,7 @@ void BattleScene::setPlayer(Hero *value)
 {
     _player = value;
 }
-
+/*
 const Point& BattleScene::getScreenPosition(float x, float y)
 {
 	Point start = SceneCamera::getInstance()->getStart();
@@ -285,3 +285,4 @@ const Point& BattleScene::getScreenPosition(float x, float y)
 		x - start.x,
 		x - start.y);
 }
+*/

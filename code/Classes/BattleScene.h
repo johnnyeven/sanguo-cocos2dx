@@ -24,9 +24,9 @@ public:
     float getMapHeight() { return _mapHeight; };
 	Joystick* getJoystick() { return _joystick; };
     void setPlayer(Hero*);
-	const Point& getScreenPosition(float x, float y);
     Hero* getPlayer() { return _player; };
-	Rect* getLimitArea() { return _limitArea; };
+	//Rect* getLimitArea() { return _limitArea; };
+	//const Point& getScreenPosition(float x, float y);
     
     // implement the "static create()" method manually
     CREATE_FUNC(BattleScene);
@@ -37,7 +37,7 @@ private:
     std::string* _currentMapId;
     float _mapWidth;
 	float _mapHeight;
-	Rect* _limitArea;
+	//Rect* _limitArea;
     Layer* _backgroundLayer;
 	Layer* _midgroundLayer;
 	Layer* _characterLayer;
