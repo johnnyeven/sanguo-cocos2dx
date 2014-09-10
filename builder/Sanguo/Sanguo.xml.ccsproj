@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<GameProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>E:\cocos2dx\Sanguo\builder\Sanguo</ProjectDir>
+  <Version>1.6.0.0</Version>
+  <Resources>E:\cocos2dx\Sanguo\builder\Sanguo</Resources>
+  <Name>Sanguo</Name>
+  <JsonFileName>Sanguo.json</JsonFileName>
+  <CanvasSize>
+    <Width>480</Width>
+    <Height>320</Height>
+  </CanvasSize>
+  <filePath>E:\cocos2dx\Sanguo\builder\Sanguo\Sanguo.xml.ccsproj</filePath>
+  <ProjectType>GameProject</ProjectType>
+  <ResRelativePath />
+  <ResProjFolder>E:\cocos2dx\Sanguo\builder\Sanguo\CocosStudio\ccsprojs</ResProjFolder>
+  <AssetsDir>E:\cocos2dx\Sanguo\builder\Sanguo\CocosStudio\assets</AssetsDir>
+  <LanaguageType>cpp</LanaguageType>
+</GameProject>

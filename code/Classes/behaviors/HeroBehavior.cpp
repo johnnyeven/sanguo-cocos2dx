@@ -27,6 +27,15 @@ HeroBehavior::~HeroBehavior()
 
 void HeroBehavior::update(float delta)
 {
+	RoleAction a = _target->getAction();
+	if(a == RoleAction::ATTACK1 ||
+		 a == RoleAction::ATTACK2 ||
+		 a == RoleAction::ATTACK3 ||
+		 a == RoleAction::ATTACK4 ||
+		 a == RoleAction::ATTACK5)
+	{
+		return;
+	}
 	if(GlobalVars::behavior_mode == BehaviorMode::MANUAL && _joystick)
 	{
 		//Manual controll
@@ -35,6 +44,7 @@ void HeroBehavior::update(float delta)
 		{
 			_target->setAction(RoleAction::RUN);
 			Point p = _target->getWorldPosition();
+			float angle;
 			if(d == JoystickEnum::D_LEFT)
 			{
 				_target->setBackWalk(true);
@@ -59,36 +69,43 @@ void HeroBehavior::update(float delta)
 			}
             else if(d == JoystickEnum::D_LEFT_UP)
             {
+				angle = CC_DEGREES_TO_RADIANS(150.f);
                 _target->setBackWalk(true);
-				float x = p.x - _target->getSpeed() * delta;
-				float y = p.y + _target->getSpeed() * delta;
+				float x = p.x + _target->getSpeed() * cosf(angle) * delta;
+				float y = p.y + _target->getSpeed() * sinf(angle) * delta;
 				_target->setWorldPosition(x, y);
             }
             else if(d == JoystickEnum::D_LEFT_DOWN)
             {
+				angle = CC_DEGREES_TO_RADIANS(-150.f);
                 _target->setBackWalk(true);
-				float x = p.x - _target->getSpeed() * delta;
-				float y = p.y - _target->getSpeed() * delta;
+				float x = p.x + _target->getSpeed() * cosf(angle) * delta;
+				float y = p.y + _target->getSpeed() * sinf(angle) * delta;
 				_target->setWorldPosition(x, y);
             }
             else if(d == JoystickEnum::D_RIGHT_UP)
             {
+				angle = CC_DEGREES_TO_RADIANS(30.f);
                 _target->setBackWalk(false);
-				float x = p.x + _target->getSpeed() * delta;
-				float y = p.y + _target->getSpeed() * delta;
+				float x = p.x + _target->getSpeed() * cosf(angle) * delta;
+				float y = p.y + _target->getSpeed() * sinf(angle) * delta;
 				_target->setWorldPosition(x, y);
             }
             else if(d == JoystickEnum::D_RIGHT_DOWN)
             {
+				angle = CC_DEGREES_TO_RADIANS(-30.f);
                 _target->setBackWalk(false);
-				float x = p.x + _target->getSpeed() * delta;
-				float y = p.y - _target->getSpeed() * delta;
+				float x = p.x + _target->getSpeed() * cosf(angle) * delta;
+				float y = p.y + _target->getSpeed() * sinf(angle) * delta;
 				_target->setWorldPosition(x, y);
             }
 		}
 		else
 		{
-			_target->setAction(RoleAction::WAIT);
+			if(a == RoleAction::RUN)
+			{
+				_target->setAction(RoleAction::WAIT);
+			}
 		}
 	}
 	else

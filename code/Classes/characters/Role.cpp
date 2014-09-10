@@ -42,6 +42,19 @@ void Role::setAction(RoleAction value)
 {
 	if(_action != value)
 	{
+		if((value == RoleAction::ATTACK1 ||
+			value == RoleAction::ATTACK2 ||
+			value == RoleAction::ATTACK3 ||
+			value == RoleAction::ATTACK4 ||
+			value == RoleAction::ATTACK5) &&
+			(_action == RoleAction::ATTACK1 ||
+			_action == RoleAction::ATTACK2 ||
+			_action == RoleAction::ATTACK3 ||
+			_action == RoleAction::ATTACK4 ||
+			_action == RoleAction::ATTACK5))
+		{
+			return;
+		}
 		stopAllActions();
 		_action = value;
 		int index = (int)value;

@@ -47,6 +47,8 @@ private:
 	Layer* _midgroundLayer;
 	Layer* _characterLayer;
     Layer* _foregroundLayer;
+
+	void onBattleControlTouchBegan(Node* object);
 };
 
 #endif // __BATTLESCENE_H__

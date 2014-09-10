@@ -5,6 +5,7 @@
 #include "Joystick.h"
 #include "Camera.h"
 #include "characters/Hero.h"
+#include "BattleControllPanel.h"
 
 BattleScene* BattleScene::_instance = nullptr;
 
@@ -45,7 +46,7 @@ bool BattleScene::init()
     {
         return false;
     }
-    
+    srand(time(0));
     _backgroundLayer = Layer::create();
     addChild(_backgroundLayer);
 	_midgroundLayer = Layer::create();
@@ -63,38 +64,28 @@ bool BattleScene::init()
 void BattleScene::onEnter()
 {
     Layer::onEnter();
+
 	loadRoleAnimation("images/roles/p1_s2/p1_s2.json");
-//
-//    for(int i = 0; i < 20; ++i)
-//    {
-//        auto s = Hero::create();
-//        addChild(s);
-//        s->setPosition(rand() % 960, rand() % 640);
-//        s->setAction(RoleAction::RUN);
-//    }
-	
-	/*
-	CCAnimate* animate = CCAnimate::create(CCAnimationCache::getInstance()->getAnimation("wait"));
-	auto s = Sprite::create();
-	addChild(s);
-	s->setPosition(960 / 2, 640 / 2);
-	s->runAction(Sequence::create(animate, NULL));
-	*/
-    
     loadMapConfig("images/maps/1001.json");
     
     _joystick = Joystick::create("images/dPadTouchBg2.png", "images/dPadTouchBtn2.png");
     addChild(_joystick);
     _joystick->setPosition(Vec2(150,150));//設置初始位置
-    _joystick->setFailRadius(30);
+	_joystick->setAutoPosition(true);
+    _joystick->setFailRadius(20);
     _joystick->onRun();
+
+	BattleControllPanel* control = BattleControllPanel::create();
+	addChild(control);
+	control->touchBeganCallback = CC_CALLBACK_1(BattleScene::onBattleControlTouchBegan, this);
+	control->run();
     
     auto s = Hero::create();
     _characterLayer->addChild(s);
     s->setAnchorPoint(Vec2(.5f, .35f));
 	s->setSpeed(250.f);
 	s->setWorldPosition(_roleStartX, _roleStartY);
-    s->setAction(RoleAction::STAND);
+    s->setAction(RoleAction::WAIT);
     setPlayer(s);
 	
     SceneCamera::getInstance()->focusOn(_player);
@@ -313,4 +304,10 @@ Point BattleScene::getScreenPosition(float x, float y)
 	return Point(
 		x - start.x,
 		x - start.y);
+}
+
+void BattleScene::onBattleControlTouchBegan(Node* object)
+{
+	int i = rand() % 5 + 4;
+	_player->setAction(RoleAction(i));
 }

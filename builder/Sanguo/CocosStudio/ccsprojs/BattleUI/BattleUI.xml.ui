@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<UIProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectDir>E:\cocos2dx\Sanguo\builder\Sanguo\CocosStudio\ccsprojs\BattleUI</ProjectDir>
+  <Version>1.6.0.0</Version>
+  <Resources>E:\cocos2dx\Sanguo\builder\Sanguo\CocosStudio\assets</Resources>
+  <Name>BattleUI</Name>
+  <JsonFileName>BattleUI.json</JsonFileName>
+  <JsonFolder>E:\cocos2dx\Sanguo\builder\Sanguo\CocosStudio\ccsprojs\BattleUI\Json</JsonFolder>
+  <JsonList>
+    <string>BattleUI_controller.json</string>
+  </JsonList>
+  <CanvasSize>
+    <Width>960</Width>
+    <Height>640</Height>
+  </CanvasSize>
+  <filePath>E:\cocos2dx\Sanguo\builder\Sanguo\CocosStudio\ccsprojs\BattleUI\BattleUI.xml.ui</filePath>
+  <ProjectType>UIProject</ProjectType>
+  <ResRelativePath>\\..\\..\\assets</ResRelativePath>
+  <imageFileList>
+    <string>BattleUI0.plist</string>
+  </imageFileList>
+  <imagePngList>
+    <string>BattleUI0.png</string>
+  </imagePngList>
+  <JsonSuffix>.json</JsonSuffix>
+  <CurrentUIJson>BattleUI_controller.json</CurrentUIJson>
+</UIProject>
