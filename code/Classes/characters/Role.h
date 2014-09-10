@@ -4,9 +4,9 @@
 #pragma once
 #include "cocos2d.h"
 #include "define.h"
-#include "RoleData.h"
 
 USING_NS_CC;
+class RoleData;
 class BattleScene;
 class Skill;
 class Role :
@@ -15,15 +15,15 @@ class Role :
 public:
 	void setData(RoleData*);
 	RoleData* getData() { return _data; };
-	float getSpeed() { return _data->speed; };
+	float getSpeed();
 	void setSpeed(float);
-	float getHealth() { return _data->health; };
+	float getHealth();
 	void setHealth(float);
-	float getHealthMax() { return _data->healthMax; };
+	float getHealthMax();
 	void setHealthMax(float);
 	RoleAction getAction() { return _action; };
 	void setAction(RoleAction);
-	Point& getWorldPosition() { return _data->worldPosition; };
+	Point& getWorldPosition();
 	void setWorldPosition(Point&);
 	void setWorldPosition(float x, float y);
     void setFocused(bool);

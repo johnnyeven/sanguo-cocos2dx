@@ -1,11 +1,11 @@
 #include "BattleScene.h"
-#include "characters/Hero.h"
 #include "json/rapidjson.h"
 #include "json/document.h"
 #include "Joystick.h"
 #include "Camera.h"
-#include "characters/Hero.h"
 #include "BattleControllPanel.h"
+#include "characters/Hero.h"
+#include "characters/RoleData.h"
 
 BattleScene* BattleScene::_instance = nullptr;
 
@@ -67,27 +67,20 @@ void BattleScene::onEnter()
 
 	loadRoleAnimation("images/roles/p1_s2/p1_s2.json");
     loadMapConfig("images/maps/1001.json");
-    
-    _joystick = Joystick::create("images/dPadTouchBg2.png", "images/dPadTouchBtn2.png");
-    addChild(_joystick);
-    _joystick->setPosition(Vec2(150,150));//設置初始位置
-	_joystick->setAutoPosition(true);
-    _joystick->setFailRadius(20);
-    _joystick->onRun();
 
-	BattleControllPanel* control = BattleControllPanel::create();
+	BattleControllPanel* control = BattleControllPanel::getInstance();
 	addChild(control);
 	control->touchBeganCallback = CC_CALLBACK_1(BattleScene::onBattleControlTouchBegan, this);
 	control->run();
     
     auto s = Hero::create();
     _characterLayer->addChild(s);
+	s->setData(new RoleData());
     s->setAnchorPoint(Vec2(.5f, .35f));
 	s->setSpeed(250.f);
 	s->setWorldPosition(_roleStartX, _roleStartY);
     s->setAction(RoleAction::WAIT);
     setPlayer(s);
-	s->setData(new RoleData());
 	
     SceneCamera::getInstance()->focusOn(_player);
     scheduleUpdate();
@@ -307,7 +300,7 @@ Point BattleScene::getScreenPosition(float x, float y)
 		x - start.y);
 }
 
-void BattleScene::onBattleControlTouchBegan(Node* object)
+void BattleScene::onBattleControlTouchBegan(Ref* object)
 {
 	int i = rand() % 5 + 4;
 	_player->setAction(RoleAction(i));

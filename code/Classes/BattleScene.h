@@ -25,7 +25,6 @@ public:
 	bool loadRoleAnimation(const std::string&);
     float getMapWidth() { return _mapWidth; };
     float getMapHeight() { return _mapHeight; };
-	Joystick* getJoystick() { return _joystick; };
     void setPlayer(Hero*);
     Hero* getPlayer() { return _player; };
 	Rect* getLimitArea() { return _limitArea; };
@@ -35,7 +34,6 @@ public:
     CREATE_FUNC(BattleScene);
 private:
 	static BattleScene* _instance;
-    Joystick* _joystick;
     Hero* _player;
     std::string* _currentMapId;
     float _mapWidth;
@@ -48,7 +46,7 @@ private:
 	Layer* _characterLayer;
     Layer* _foregroundLayer;
 
-	void onBattleControlTouchBegan(Node* object);
+	void onBattleControlTouchBegan(Ref* object);
 };
 
 #endif // __BATTLESCENE_H__

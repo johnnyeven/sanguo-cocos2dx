@@ -10,12 +10,13 @@
 #include "BattleScene.h"
 #include "Joystick.h"
 #include "GlobalVars.h"
+#include "BattleControllPanel.h"
 
 HeroBehavior::HeroBehavior()
 {
 	_target = nullptr;
 	_scene = BattleScene::getInstance();
-	_joystick = _scene->getJoystick();
+	_joystick = BattleControllPanel::getInstance()->getJoystick();
 	_halfScreenWidth = GlobalVars::scene_width >> 1;
 	_halfScreenHeight = GlobalVars::scene_height >> 1;
 }

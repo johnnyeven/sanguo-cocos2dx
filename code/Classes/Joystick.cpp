@@ -1,4 +1,5 @@
 #include "Joystick.h"
+#include "GlobalVars.h"
 
 Joystick* Joystick::create(std::string chassisPath,std::string dotPath)
 {
@@ -23,7 +24,7 @@ void Joystick::initWithJoystick(std::string chassisPath,std::string dotPath)
 void Joystick::onRun()
 {
     listener = EventListenerTouchOneByOne::create();
-    listener->setSwallowTouches(false);
+    listener->setSwallowTouches(true);
     listener->onTouchBegan = CC_CALLBACK_2(Joystick::onTouchBegan,this);
     listener->onTouchMoved = CC_CALLBACK_2(Joystick::onTouchMoved,this);
     listener->onTouchEnded = CC_CALLBACK_2(Joystick::onTouchEnded,this);
@@ -32,10 +33,15 @@ void Joystick::onRun()
 
 bool Joystick::onTouchBegan(Touch* touch,Event* event)
 {
-    Vec2 locationInNode = this->convertToNodeSpace(touch->getLocation());
+    Vec2 p = touch->getLocation();
+    if (p.x > (GlobalVars::scene_width >> 1))
+    {
+        return false;
+    }
+    Vec2 locationInNode = this->convertToNodeSpace(p);
     if( isAutoPosition )
     {
-        this->setPosition(touch->getLocation());
+        this->setPosition(p);
         return true;
     }
     if( isAutoPosition==false && isDieRadius )

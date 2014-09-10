@@ -11,17 +11,17 @@ public:
 	RoleData(void);
 	~RoleData(void);
 
-	std::string& roleName;
-	float atk;	//¹¥»÷
-	float matk;	//Ä§¹¥
-	float def;	//Îï·À
-	float mdef;	//Ä§·À
-	float flee;	//ÉÁ±Ü
-	float crit;	//±¬»÷
-	float speed;	//ÒÆ¶¯ËÙ¶È
-	float health;	//ÉúÃü
-	float healthMax;	//×î´óÉúÃü
-	Point worldPosition;	//×ø±ê
+	std::string* roleName;
+	float atk;	//æ”»å‡»
+	float matk;	//é­”æ”»
+	float def;	//é˜²å¾¡
+	float mdef;	//é­”é˜²
+	float flee;	//é—ªé¿
+	float crit;	//çˆ†å‡»
+	float speed;	//è¡Œèµ°é€Ÿåº¦
+	float health;	//ç”Ÿå‘½
+	float healthMax;	//æœ€å¤§ç”Ÿå‘½
+	Point worldPosition;	//åæ ‡
 };
 
 #endif

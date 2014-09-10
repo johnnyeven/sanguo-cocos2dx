@@ -1,6 +1,7 @@
 #include "Role.h"
 #include "../BattleScene.h"
 #include "../skills/Skill.h"
+#include "RoleData.h"
 
 Role::Role(void)
 {
@@ -35,14 +36,29 @@ void Role::setSpeed(float value)
 	_data->speed = value;
 }
 
+float Role::getSpeed()
+{
+    return _data->speed;
+}
+
 void Role::setHealth(float value)
 {
 	_data->health = value;
 }
 
+float Role::getHealth()
+{
+    return _data->health;
+}
+
 void Role::setHealthMax(float value)
 {
 	_data->healthMax = value;
+}
+
+float Role::getHealthMax()
+{
+    return _data->healthMax;
 }
 
 void Role::setAction(RoleAction value)
@@ -100,6 +116,11 @@ void Role::setWorldPosition(float x, float y)
     }
 	_data->worldPosition.x = x;
 	_data->worldPosition.y = y;
+}
+
+Point& Role::getWorldPosition()
+{
+    return _data->worldPosition;
 }
 
 void Role::setFocused(bool value)

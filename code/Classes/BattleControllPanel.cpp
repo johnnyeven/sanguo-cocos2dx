@@ -1,5 +1,7 @@
 #include "BattleControllPanel.h"
+#include "Joystick.h"
 
+BattleControllPanel* BattleControllPanel::_instance = nullptr;
 
 BattleControllPanel::BattleControllPanel(void)
 {
@@ -12,6 +14,15 @@ BattleControllPanel::BattleControllPanel(void)
 
 BattleControllPanel::~BattleControllPanel(void)
 {
+}
+
+BattleControllPanel* BattleControllPanel::getInstance()
+{
+    if(!_instance)
+    {
+        _instance = BattleControllPanel::create();
+    }
+    return _instance;
 }
 
 bool BattleControllPanel::init()
@@ -27,11 +38,20 @@ bool BattleControllPanel::init()
 void BattleControllPanel::onEnter()
 {
 	Layer::onEnter();
+    
 	auto _layout = static_cast<Layout*>(GUIReader::getInstance()->widgetFromJsonFile("images/ui/battle_scene/BattleUI_controller.ExportJson"));
+
 	addChild(_layout);
-	
+    
+    _joystick = Joystick::create("images/dPadTouchBg2.png", "images/dPadTouchBtn2.png");
+    _layout->addChild(_joystick);
+    _joystick->setPosition(Vec2(150,150));//設置初始位置
+	_joystick->setAutoPosition(true);
+    _joystick->setFailRadius(20);
+    _joystick->onRun();
+    
 	btnNormalAttack = static_cast<Button*>(Helper::seekWidgetByName(_layout, "btnNormalAttack"));
-	btnNormalAttack->addTouchEventListener(this, toucheventselector(BattleControllPanel::onButtonTouched));
+	btnNormalAttack->addTouchEventListener(Widget::ccWidgetTouchCallback(CC_CALLBACK_2(BattleControllPanel::onButtonTouched, this)));
 }
 
 void BattleControllPanel::run()
@@ -44,7 +64,7 @@ void BattleControllPanel::stop()
 	_isRunning = false;
 }
 
-void BattleControllPanel::onButtonTouched(Node* object, Widget::TouchEventType type)
+void BattleControllPanel::onButtonTouched(Ref* object, Widget::TouchEventType type)
 {
 	if(_isRunning)
 	{

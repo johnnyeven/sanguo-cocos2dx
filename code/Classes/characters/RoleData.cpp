@@ -2,8 +2,8 @@
 
 
 RoleData::RoleData(void):
-	roleName(std::string("")),
-	worldPosition(Point(0, 0))
+roleName(nullptr),
+worldPosition(Point(0, 0))
 {
 	
 }

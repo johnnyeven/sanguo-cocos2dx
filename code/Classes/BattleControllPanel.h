@@ -10,27 +10,33 @@ USING_NS_CC;
 using namespace ui;
 using namespace cocostudio;
 
+class Joystick;
 class BattleControllPanel :
 	public Layer
 {
 public:
+    static BattleControllPanel* getInstance();
 	CREATE_FUNC(BattleControllPanel);
 	virtual bool init();
 	virtual void onEnter();
 	void run();
 	void stop();
+	Joystick* getJoystick() { return _joystick; };
 
-	std::function<void(Node*)> touchBeganCallback;
-	std::function<void(Node*)> touchEndCallback;
-	std::function<void(Node*)> touchMoveCallback;
+	std::function<void(Ref*)> touchBeganCallback;
+	std::function<void(Ref*)> touchEndCallback;
+	std::function<void(Ref*)> touchMoveCallback;
 private:
 	BattleControllPanel(void);
 	~BattleControllPanel(void);
 
-	void onButtonTouched(Node* object, Widget::TouchEventType type);
+	void onButtonTouched(Ref* object, Widget::TouchEventType type);
 
+    static BattleControllPanel* _instance;
 	bool _isRunning;
+    Joystick* _joystick;
 	Button* btnNormalAttack;
+    EventListenerTouchOneByOne* btnNormalAttackListener;
 };
 
 #endif
