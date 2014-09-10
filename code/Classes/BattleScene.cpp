@@ -87,6 +87,7 @@ void BattleScene::onEnter()
 	s->setWorldPosition(_roleStartX, _roleStartY);
     s->setAction(RoleAction::WAIT);
     setPlayer(s);
+	s->setData(new RoleData());
 	
     SceneCamera::getInstance()->focusOn(_player);
     scheduleUpdate();

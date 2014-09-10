@@ -42,6 +42,14 @@ void HeroBehavior::update(float delta)
 		JoystickEnum d = _joystick->getDirection();
 		if(d != JoystickEnum::DEFAULT)
 		{
+			if(a == RoleAction::ATTACK1 ||
+				 a == RoleAction::ATTACK2 ||
+				 a == RoleAction::ATTACK3 ||
+				 a == RoleAction::ATTACK4 ||
+				 a == RoleAction::ATTACK5)
+			{
+				return;
+			}
 			_target->setAction(RoleAction::RUN);
 			Point p = _target->getWorldPosition();
 			float angle;

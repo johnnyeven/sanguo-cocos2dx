@@ -1,16 +1,14 @@
 #include "Role.h"
 #include "../BattleScene.h"
+#include "../skills/Skill.h"
 
 Role::Role(void)
 {
-	_speed = 0;
-	_health = 0;
-	_healthMax = 0;
 	_action = RoleAction::UNDEFINED;
-	_worldPosition = Point(0.f, 0.f);
 	_isFocused = false;
 	_isBackWalk = false;
 	_scene = nullptr;
+	_skillIndex = std::map<std::string, Skill*>();
 }
 
 Role::~Role(void)
@@ -23,19 +21,28 @@ void Role::onEnter()
     _scene = BattleScene::getInstance();
 }
 
+void Role::setData(RoleData* data)
+{
+	_data = data;
+	setSpeed(data->speed);
+	setHealth(data->health);
+	setHealthMax(data->healthMax);
+	setWorldPosition(data->worldPosition);
+}
+
 void Role::setSpeed(float value)
 {
-	_speed = value;
+	_data->speed = value;
 }
 
 void Role::setHealth(float value)
 {
-	_health = value;
+	_data->health = value;
 }
 
 void Role::setHealthMax(float value)
 {
-	_healthMax = value;
+	_data->healthMax = value;
 }
 
 void Role::setAction(RoleAction value)
@@ -79,8 +86,8 @@ void Role::setWorldPosition(Point& value)
         value.x = std::min(limit->getMaxX(), std::max(limit->getMinX(), value.x));
         value.y = std::min(limit->getMaxY(), std::max(limit->getMinY(), value.y));
     }
-	_worldPosition.x = value.x;
-	_worldPosition.y = value.y;
+	_data->worldPosition.x = value.x;
+	_data->worldPosition.y = value.y;
 }
 
 void Role::setWorldPosition(float x, float y)
@@ -91,8 +98,8 @@ void Role::setWorldPosition(float x, float y)
         x = std::min(limit->getMaxX(), std::max(limit->getMinX(), x));
         y = std::min(limit->getMaxY(), std::max(limit->getMinY(), y));
     }
-	_worldPosition.x = x;
-	_worldPosition.y = y;
+	_data->worldPosition.x = x;
+	_data->worldPosition.y = y;
 }
 
 void Role::setFocused(bool value)
