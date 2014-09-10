@@ -42,7 +42,6 @@ void BattleControllPanel::onEnter()
 	auto _layout = static_cast<Layout*>(GUIReader::getInstance()->widgetFromJsonFile("images/ui/battle_scene/BattleUI_controller.ExportJson"));
 
 	addChild(_layout);
-    
     _joystick = Joystick::create("images/dPadTouchBg2.png", "images/dPadTouchBtn2.png");
     _layout->addChild(_joystick);
     _joystick->setPosition(Vec2(150,150));//設置初始位置
