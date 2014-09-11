@@ -97,18 +97,3 @@ void BattleControllPanel::onButtonTouched(Ref* object, Widget::TouchEventType ty
 		}
 	}
 }
-
-void BattleControllPanel::onTouchesBegan(std::vector<Touch*> pTouches, Event* pEvent)
-{
-	log("touches %i", pTouches.size());
-}
-
-void BattleControllPanel::onTouchesMoved(std::vector<Touch*> pTouches, Event* pEvent)
-{
-
-}
-
-void BattleControllPanel::onTouchesEnded(std::vector<Touch*> pTouches, Event* pEvent)
-{
-
-}
