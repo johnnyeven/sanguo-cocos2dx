@@ -11,6 +11,7 @@
 #include "Joystick.h"
 #include "GlobalVars.h"
 #include "BattleControllPanel.h"
+#include "../characters/Hero.h"
 
 HeroBehavior::HeroBehavior()
 {
@@ -141,9 +142,9 @@ void HeroBehavior::updatePosition(float delta)
 		}
 		else
 		{
-			Point p = _scene->getScreenPosition(p.x, p.y);
-			targetX = p.x;
-			targetY = p.y;
+			Point screenPosition = _scene->getScreenPosition(p.x, p.y);
+			targetX = screenPosition.x;
+			targetY = screenPosition.y;
 		}
 
 		_target->setPosition(targetX, targetY);

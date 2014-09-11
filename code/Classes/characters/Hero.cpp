@@ -2,7 +2,7 @@
 #include "../behaviors/HeroBehavior.h"
 
 
-Hero::Hero(void):Role()
+Hero::Hero(int id):Role(id)
 {
     setBehavior(new HeroBehavior());
 }
@@ -12,9 +12,9 @@ Hero::~Hero(void)
 {
 }
 
-Hero* Hero::create()
+Hero* Hero::create(int id)
 {
-    Hero *s = new (std::nothrow) Hero();
+    Hero *s = new (std::nothrow) Hero(id);
     if (s && s->init())
     {
         s->autorelease();

@@ -51,6 +51,11 @@ void BattleControllPanel::onEnter()
     
 	btnNormalAttack = static_cast<Button*>(Helper::seekWidgetByName(_layout, "btnNormalAttack"));
 	btnNormalAttack->addTouchEventListener(Widget::ccWidgetTouchCallback(CC_CALLBACK_2(BattleControllPanel::onButtonTouched, this)));
+	/*
+	auto l = EventListenerTouchAllAtOnce::create();
+	l->onTouchesBegan = CC_CALLBACK_2(BattleControllPanel::onTouchesBegan, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(l, this);
+	*/
 }
 
 void BattleControllPanel::run()
@@ -91,4 +96,19 @@ void BattleControllPanel::onButtonTouched(Ref* object, Widget::TouchEventType ty
 			break;
 		}
 	}
+}
+
+void BattleControllPanel::onTouchesBegan(std::vector<Touch*> pTouches, Event* pEvent)
+{
+	log("touches %i", pTouches.size());
+}
+
+void BattleControllPanel::onTouchesMoved(std::vector<Touch*> pTouches, Event* pEvent)
+{
+
+}
+
+void BattleControllPanel::onTouchesEnded(std::vector<Touch*> pTouches, Event* pEvent)
+{
+
 }

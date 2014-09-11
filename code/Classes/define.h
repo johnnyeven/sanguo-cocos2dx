@@ -17,7 +17,8 @@ enum RoleAction
 	ATTACK4,
 	ATTACK5,
 	HIT,
-	WIN
+	WIN,
+	DEATH
 };
 
 enum BehaviorMode

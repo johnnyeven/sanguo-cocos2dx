@@ -22,7 +22,7 @@ public:
 	float getHealthMax();
 	void setHealthMax(float);
 	RoleAction getAction() { return _action; };
-	void setAction(RoleAction);
+	virtual void setAction(RoleAction);
 	Point& getWorldPosition();
 	void setWorldPosition(Point&);
 	void setWorldPosition(float x, float y);
@@ -30,21 +30,23 @@ public:
     bool getFocused() { return _isFocused; };
 	void setBackWalk(bool);
 	bool getBackWalk() { return _isBackWalk; };
+	int getId() { return _id; };
     
     virtual void onEnter();
 protected:
-	Role(void);
+	Role(int);
 	~Role(void);
-
+	
+	RoleAction _action;
 private:
 	RoleData* _data;
+	int _id;
     bool _isFocused;
 	bool _isBackWalk;
-	RoleAction _action;
 	BattleScene* _scene;
 	std::map<std::string, Skill*> _skillIndex;
 
-	void restoreOriginalAnimation();
+	virtual void restoreOriginalAnimation();
 };
 
 #endif

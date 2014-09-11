@@ -32,6 +32,10 @@ private:
 
 	void onButtonTouched(Ref* object, Widget::TouchEventType type);
 
+	virtual void onTouchesBegan(std::vector<Touch*>, Event*);
+	virtual void onTouchesMoved(std::vector<Touch*>, Event*);
+	virtual void onTouchesEnded(std::vector<Touch*>, Event*);
+
     static BattleControllPanel* _instance;
 	bool _isRunning;
     Joystick* _joystick;

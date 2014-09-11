@@ -28,7 +28,9 @@ public:
     void setPlayer(Hero*);
     Hero* getPlayer() { return _player; };
 	Rect* getLimitArea() { return _limitArea; };
-	Point getScreenPosition(float x, float y);
+	Point getScreenPosition(float x, float y) const;
+	void addDisplay(Sprite*);
+	void removeDisplay(Sprite*);
     
     // implement the "static create()" method manually
     CREATE_FUNC(BattleScene);
@@ -45,6 +47,7 @@ private:
 	Layer* _midgroundLayer;
 	Layer* _characterLayer;
     Layer* _foregroundLayer;
+	Vector<Sprite*> _displayList;
 
 	void onBattleControlTouchBegan(Ref* object);
 };

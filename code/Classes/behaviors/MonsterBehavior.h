@@ -6,8 +6,8 @@
 //
 //
 
-#ifndef __Sanguo__HeroBehavior__
-#define __Sanguo__HeroBehavior__
+#ifndef __Sanguo__MonsterBehavior__
+#define __Sanguo__MonsterBehavior__
 #pragma once
 
 #include "cocos2d.h"
@@ -15,24 +15,22 @@
 
 USING_NS_CC;
 
-class Hero;
+class Monster;
 class BattleScene;
-class Joystick;
-class HeroBehavior:
+class MonsterBehavior:
     public IBehavior
 {
 public:
-    HeroBehavior(void);
-    virtual ~HeroBehavior(void);
+    MonsterBehavior(void);
+    virtual ~MonsterBehavior(void);
     
     virtual void update(float delta);
 	void updatePosition(float delta);
-    void setTarget(Hero*);
-    Hero* getTarget() { return _target; };
+    void setTarget(Monster*);
+    Monster* getTarget() { return _target; };
 private:
-    Hero* _target;
+    Monster* _target;
 	BattleScene* _scene;
-	Joystick* _joystick;
 	float _halfScreenWidth;
 	float _halfScreenHeight;
 };

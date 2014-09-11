@@ -3,7 +3,8 @@
 #include "../skills/Skill.h"
 #include "RoleData.h"
 
-Role::Role(void)
+Role::Role(int id):
+_id(id)
 {
 	_action = RoleAction::UNDEFINED;
 	_isFocused = false;
@@ -81,7 +82,7 @@ void Role::setAction(RoleAction value)
 		stopAllActions();
 		_action = value;
 		int index = (int)value;
-		std::string name = GlobalConfig::action[index];
+		std::string name = StringUtils::format("%i_%s", _id, GlobalConfig::action[index].c_str());
 		CCAnimate* animate = CCAnimate::create(CCAnimationCache::getInstance()->getAnimation(name));
 		if(index < 4)
 		{

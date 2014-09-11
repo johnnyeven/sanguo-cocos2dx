@@ -13,11 +13,11 @@ class Hero :
 	public Role
 {
 public:
-	static Hero* create();
+	static Hero* create(int);
     virtual void update(float delta);
     void setBehavior(HeroBehavior*);
 private:
-	Hero(void);
+	Hero(int);
 	~Hero(void);
     
     HeroBehavior* _behavior;

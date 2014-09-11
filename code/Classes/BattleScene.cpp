@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "BattleControllPanel.h"
 #include "characters/Hero.h"
+#include "characters/Monster.h"
 #include "characters/RoleData.h"
 
 BattleScene* BattleScene::_instance = nullptr;
@@ -57,6 +58,7 @@ bool BattleScene::init()
     addChild(_foregroundLayer);
 	_currentMapId = new std::string();
 	_limitArea = new Rect(0, 0, 0, 0);
+	_displayList = Vector<Sprite*>();
     
     return true;
 }
@@ -65,7 +67,8 @@ void BattleScene::onEnter()
 {
     Layer::onEnter();
 
-	loadRoleAnimation("images/roles/p1_s2/p1_s2.json");
+	loadRoleAnimation("images/roles/1001/1001.json");
+	loadRoleAnimation("images/roles/2001/2001.json");
     loadMapConfig("images/maps/1001.json");
 
 	BattleControllPanel* control = BattleControllPanel::getInstance();
@@ -73,14 +76,22 @@ void BattleScene::onEnter()
 	control->touchBeganCallback = CC_CALLBACK_1(BattleScene::onBattleControlTouchBegan, this);
 	control->run();
     
-    auto s = Hero::create();
-    _characterLayer->addChild(s);
+    auto s = Hero::create(1001);
+	addDisplay(s);
 	s->setData(new RoleData());
     s->setAnchorPoint(Vec2(.5f, .35f));
-	s->setSpeed(250.f);
+	s->setSpeed(300.f);
 	s->setWorldPosition(_roleStartX, _roleStartY);
     s->setAction(RoleAction::WAIT);
     setPlayer(s);
+	
+	auto m = Monster::create(2001);
+	addDisplay(m);
+	m->setData(new RoleData());
+    m->setAnchorPoint(Vec2(.5f, .35f));
+	m->setSpeed(300.f);
+	m->setWorldPosition(500, 120);
+    m->setAction(RoleAction::STAND);
 	
     SceneCamera::getInstance()->focusOn(_player);
     scheduleUpdate();
@@ -93,9 +104,9 @@ void BattleScene::update(float delta)
     SceneCamera::getInstance()->update(delta);
 	updateMap(delta);
 
-	if(_player)
+	for(Sprite* r : _displayList)
 	{
-		_player->update(delta);
+		r->update(delta);
 	}
 
 	auto camera = SceneCamera::getInstance();
@@ -292,7 +303,33 @@ void BattleScene::setPlayer(Hero *value)
     _player = value;
 }
 
-Point BattleScene::getScreenPosition(float x, float y)
+void BattleScene::addDisplay(Sprite* obj)
+{
+	int index = _displayList.getIndex(obj);
+	if(index < 0)
+	{
+		_displayList.pushBack(obj);
+		if(dynamic_cast<Role*>(obj))
+		{
+			_characterLayer->addChild(obj);
+		}
+	}
+}
+
+void BattleScene::removeDisplay(Sprite* obj)
+{
+	int index = _displayList.getIndex(obj);
+	if(index >= 0)
+	{
+		_displayList.erase(index);
+		if(dynamic_cast<Role*>(obj))
+		{
+			_characterLayer->removeChild(obj);
+		}
+	}
+}
+
+Point BattleScene::getScreenPosition(float x, float y) const
 {
 	Point start = SceneCamera::getInstance()->getStart();
 	return Point(
