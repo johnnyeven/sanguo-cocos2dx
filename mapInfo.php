@@ -17,9 +17,12 @@ $config = array(
 				'height'=>	220
 			),
 			'monster'		=>	array(
-				'id'	=>	2001,
-				'count'	=>	1,
-				''
+				array(
+					'id'			=>	2001,
+					'count'			=>	1,
+					'x'				=>	500,
+					'y'				=>	150
+				)
 			)
 		)
 	)

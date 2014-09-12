@@ -67,14 +67,14 @@ void BattleScene::onEnter()
 {
     Layer::onEnter();
 
-	loadRoleAnimation("images/roles/1001/1001.json");
-	loadRoleAnimation("images/roles/2001/2001.json");
-    loadMapConfig("config/maps/1001.json");
-
 	BattleControllPanel* control = BattleControllPanel::getInstance();
 	addChild(control);
 	control->touchBeganCallback = CC_CALLBACK_1(BattleScene::onBattleControlTouchBegan, this);
 	control->run();
+
+	loadRoleAnimation("images/roles/1001/1001.json");
+	loadRoleAnimation("images/roles/2001/2001.json");
+    loadMapConfig("config/maps/1001.json");
     
     auto s = Hero::create(1001);
 	addDisplay(s);
