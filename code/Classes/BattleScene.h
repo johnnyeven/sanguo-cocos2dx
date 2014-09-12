@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 class Joystick;
 class Hero;
+class BattleRoundData;
 
 USING_NS_CC;
 
@@ -21,6 +22,7 @@ public:
 
 	void loadMapConfig(const std::string&);
     bool loadMap(const std::string&);
+	void loadRound(int round);
 	void updateMap(float delta);
 	bool loadRoleAnimation(const std::string&);
     float getMapWidth() { return _mapWidth; };
@@ -38,6 +40,8 @@ private:
 	static BattleScene* _instance;
     Hero* _player;
     std::string* _currentMapId;
+	std::vector<BattleRoundData*> _mapRounds;
+	int _mapCurrentRound;
     float _mapWidth;
 	float _mapHeight;
     float _roleStartX;

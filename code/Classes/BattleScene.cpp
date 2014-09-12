@@ -7,6 +7,8 @@
 #include "characters/Hero.h"
 #include "characters/Monster.h"
 #include "characters/RoleData.h"
+#include "BattleRoundData.h"
+#include "BattleMonsterData.h"
 
 BattleScene* BattleScene::_instance = nullptr;
 
@@ -59,7 +61,8 @@ bool BattleScene::init()
 	_currentMapId = new std::string();
 	_limitArea = new Rect(0, 0, 0, 0);
 	_displayList = Vector<Sprite*>();
-    
+	_mapRounds = std::vector<BattleRoundData*>();
+
     return true;
 }
 
@@ -73,8 +76,8 @@ void BattleScene::onEnter()
 	control->run();
 
 	loadRoleAnimation("images/roles/1001/1001.json");
-	loadRoleAnimation("images/roles/2001/2001.json");
     loadMapConfig("config/maps/1001.json");
+	loadRound(0);
     
     auto s = Hero::create(1001);
 	addDisplay(s);
@@ -84,11 +87,6 @@ void BattleScene::onEnter()
 	s->setWorldPosition(_roleStartX, _roleStartY);
     s->setAction(RoleAction::WAIT);
     setPlayer(s);
-	
-	auto m = Monster::createWithJson("config/monsters/2001.json");
-	addDisplay(m);
-	m->setWorldPosition(_roleStartX, _roleStartY);
-    m->setAction(RoleAction::STAND);
 	
     SceneCamera::getInstance()->focusOn(_player);
     scheduleUpdate();
@@ -137,7 +135,8 @@ void BattleScene::loadMapConfig(const std::string& filename)
 					doc.HasMember("minY") &&
                     doc.HasMember("maxY") &&
                     doc.HasMember("startX") &&
-                    doc.HasMember("startY"))
+                    doc.HasMember("startY") &&
+					doc.HasMember("rounds"))
 				{
 					_mapWidth = doc["width"].GetDouble();
 					_mapHeight = doc["height"].GetDouble();
@@ -147,6 +146,63 @@ void BattleScene::loadMapConfig(const std::string& filename)
 					float maxY = doc["maxY"].GetDouble();
 					_limitArea->setRect(0, minY, _mapWidth, maxY - minY);
 					loadMap(doc["plistFile"].GetString());
+
+					//rounds
+					rapidjson::Value& rounds = doc["rounds"];
+					if(rounds.IsArray())
+					{
+						for(int i = 0; i < rounds.Size(); ++i)
+						{
+							rapidjson::Value& round = rounds[i];
+							if(round.IsObject() &&
+								round.HasMember("limitArea") &&
+								round.HasMember("monsters"))
+							{
+								BattleRoundData* roundData = new BattleRoundData();
+								rapidjson::Value& limitArea = round["limitArea"];
+								rapidjson::Value& monsters = round["monsters"];
+
+								if(limitArea.IsObject() &&
+									limitArea.HasMember("x") &&
+									limitArea.HasMember("y") &&
+									limitArea.HasMember("width") &&
+									limitArea.HasMember("height"))
+								{
+									roundData->limitArea.setRect(
+										limitArea["x"].GetDouble(),
+										limitArea["y"].GetDouble(),
+										limitArea["width"].GetDouble(),
+										limitArea["height"].GetDouble());
+								}
+
+								if(monsters.IsArray())
+								{
+									for(int j = 0; j < monsters.Size(); ++j)
+									{
+										rapidjson::Value& monster = monsters[j];
+										if(monster.IsObject() &&
+											monster.HasMember("id") &&
+											monster.HasMember("count") &&
+											monster.HasMember("x") &&
+											monster.HasMember("y") &&
+											monster.HasMember("flipX"))
+										{
+											BattleMonsterData* monsterData = new BattleMonsterData(
+												monster["id"].GetInt(),
+												monster["count"].GetInt(),
+												monster["x"].GetDouble(),
+												monster["y"].GetDouble(),
+												monster["flipX"].GetBool());
+
+											roundData->monsters.push_back(monsterData);
+										}
+									}
+								}
+
+								_mapRounds.push_back(roundData);
+							}
+						}
+					}
 				}
 				else
 				{
@@ -223,6 +279,39 @@ bool BattleScene::loadMap(const std::string& id)
         return true;
     }
     return false;
+}
+
+void BattleScene::loadRound(int round)
+{
+	if(round < _mapRounds.size())
+	{
+		_mapCurrentRound = round;
+		BattleRoundData* roundData = _mapRounds.at(_mapCurrentRound);
+		if(roundData)
+		{
+			Rect area = roundData->limitArea;
+			_limitArea->setRect(
+				area.getMinX(),
+				area.getMinY(),
+				area.getMaxX() - area.getMinX(),
+				area.getMaxY() - area.getMinY());
+
+			for(int i = 0; i < roundData->monsters.size(); ++i)
+			{
+				BattleMonsterData* monsterData = roundData->monsters.at(i);
+				if(monsterData)
+				{
+					loadRoleAnimation(StringUtils::format("images/roles/%i/%i.json", monsterData->id, monsterData->id));
+
+					auto m = Monster::createWithJson(StringUtils::format("config/monsters/%i.json", monsterData->id));
+					addDisplay(m);
+					m->setWorldPosition(monsterData->x, monsterData->y);
+					m->setAction(RoleAction::STAND);
+					m->setFlippedX(monsterData->flipX);
+				}
+			}
+		}
+	}
 }
 
 bool BattleScene::loadRoleAnimation(const std::string& filename)
@@ -331,7 +420,7 @@ Point BattleScene::getScreenPosition(float x, float y) const
 	Point start = SceneCamera::getInstance()->getStart();
 	return Point(
 		x - start.x,
-		x - start.y);
+		y - start.y);
 }
 
 void BattleScene::onBattleControlTouchBegan(Ref* object)
