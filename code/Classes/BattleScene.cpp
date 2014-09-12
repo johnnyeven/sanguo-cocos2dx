@@ -69,7 +69,7 @@ void BattleScene::onEnter()
 
 	loadRoleAnimation("images/roles/1001/1001.json");
 	loadRoleAnimation("images/roles/2001/2001.json");
-    loadMapConfig("images/maps/1001.json");
+    loadMapConfig("config/maps/1001.json");
 
 	BattleControllPanel* control = BattleControllPanel::getInstance();
 	addChild(control);
@@ -85,12 +85,9 @@ void BattleScene::onEnter()
     s->setAction(RoleAction::WAIT);
     setPlayer(s);
 	
-	auto m = Monster::create(2001);
+	auto m = Monster::createWithJson("config/monsters/2001.json");
 	addDisplay(m);
-	m->setData(new RoleData());
-    m->setAnchorPoint(Vec2(.5f, .35f));
-	m->setSpeed(300.f);
-	m->setWorldPosition(500, 120);
+	m->setWorldPosition(_roleStartX, _roleStartY);
     m->setAction(RoleAction::STAND);
 	
     SceneCamera::getInstance()->focusOn(_player);

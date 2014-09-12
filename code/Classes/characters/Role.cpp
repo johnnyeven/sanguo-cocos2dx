@@ -9,18 +9,12 @@ _id(id)
 	_action = RoleAction::UNDEFINED;
 	_isFocused = false;
 	_isBackWalk = false;
-	_scene = nullptr;
+    _scene = BattleScene::getInstance();
 	_skillIndex = std::map<std::string, Skill*>();
 }
 
 Role::~Role(void)
 {
-}
-
-void Role::onEnter()
-{
-    Sprite::onEnter();
-    _scene = BattleScene::getInstance();
 }
 
 void Role::setData(RoleData* data)

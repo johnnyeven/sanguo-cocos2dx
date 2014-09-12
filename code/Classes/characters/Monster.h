@@ -14,6 +14,7 @@ class Monster :
 {
 public:
 	static Monster* create(int);
+	static Monster* createWithJson(const std::string&);
     virtual void update(float delta);
     void setBehavior(MonsterBehavior*);
 	virtual void setAction(RoleAction) override;

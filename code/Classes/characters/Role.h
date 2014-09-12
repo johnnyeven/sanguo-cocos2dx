@@ -31,8 +31,6 @@ public:
 	void setBackWalk(bool);
 	bool getBackWalk() { return _isBackWalk; };
 	int getId() { return _id; };
-    
-    virtual void onEnter();
 protected:
 	Role(int);
 	~Role(void);
