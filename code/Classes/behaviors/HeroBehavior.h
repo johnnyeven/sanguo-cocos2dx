@@ -26,7 +26,7 @@ public:
     virtual ~HeroBehavior(void);
     
     virtual void update(float delta);
-	void updatePosition(float delta);
+	virtual void updatePosition(float delta);
     void setTarget(Hero*);
     Hero* getTarget() { return _target; };
 private:

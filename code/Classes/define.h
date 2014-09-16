@@ -5,6 +5,12 @@
 #define BACKGROUND_OFFSETRATE .5f
 #define FOREGROUND_OFFSETRATE 2.f
 
+enum RoleTeam
+{
+	PLAYER,
+	MONSTER
+};
+
 enum RoleAction
 {
 	UNDEFINED,

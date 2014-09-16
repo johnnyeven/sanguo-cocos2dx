@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 class Joystick;
 class Hero;
+class Role;
 class BattleRoundData;
 
 USING_NS_CC;
@@ -31,6 +32,7 @@ public:
     Hero* getPlayer() { return _player; };
 	Rect* getLimitArea() { return _limitArea; };
 	Point getScreenPosition(float x, float y) const;
+	std::map< int, std::vector< Role* > >& getTeamMap() { return _teamMap; };
 	void addDisplay(Sprite*);
 	void removeDisplay(Sprite*);
     
@@ -51,7 +53,8 @@ private:
 	Layer* _midgroundLayer;
 	Layer* _characterLayer;
     Layer* _foregroundLayer;
-	Vector<Sprite*> _displayList;
+	Vector< Sprite* > _displayList;
+	std::map< int, std::vector< Role* > > _teamMap;
 
 	void onBattleControlTouchBegan(Ref* object);
 };

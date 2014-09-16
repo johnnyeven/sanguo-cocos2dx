@@ -6,6 +6,7 @@
 Role::Role(int id):
 _id(id)
 {
+	_team = 0;
 	_action = RoleAction::UNDEFINED;
 	_isFocused = false;
 	_isBackWalk = false;
@@ -15,6 +16,7 @@ _id(id)
 
 Role::~Role(void)
 {
+	_skillIndex.clear();
 }
 
 void Role::setData(RoleData* data)

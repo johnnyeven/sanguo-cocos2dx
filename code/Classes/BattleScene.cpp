@@ -60,8 +60,9 @@ bool BattleScene::init()
     addChild(_foregroundLayer);
 	_currentMapId = new std::string();
 	_limitArea = new Rect(0, 0, 0, 0);
-	_displayList = Vector<Sprite*>();
-	_mapRounds = std::vector<BattleRoundData*>();
+	_displayList = Vector< Sprite* >();
+	_teamMap = std::map< int, std::vector< Role* > >();
+	_mapRounds = std::vector< BattleRoundData* >();
 
     return true;
 }
@@ -80,6 +81,7 @@ void BattleScene::onEnter()
 	loadRound(0);
     
     auto s = Hero::create(1001);
+	s->setTeam(RoleTeam::PLAYER);
 	addDisplay(s);
 	s->setData(new RoleData());
     s->setAnchorPoint(Vec2(.5f, .35f));
@@ -304,6 +306,7 @@ void BattleScene::loadRound(int round)
 					loadRoleAnimation(StringUtils::format("images/roles/%i/%i.json", monsterData->id, monsterData->id));
 
 					auto m = Monster::createWithJson(StringUtils::format("config/monsters/%i.json", monsterData->id));
+					m->setTeam(RoleTeam::MONSTER);
 					addDisplay(m);
 					m->setWorldPosition(monsterData->x, monsterData->y);
 					m->setAction(RoleAction::STAND);
@@ -397,7 +400,22 @@ void BattleScene::addDisplay(Sprite* obj)
 		_displayList.pushBack(obj);
 		if(dynamic_cast<Role*>(obj))
 		{
-			_characterLayer->addChild(obj);
+			Role* role = dynamic_cast<Role*>(obj);
+			_characterLayer->addChild(role);
+
+			int team = role->getTeam();
+			std::map< int, std::vector< Role* > >::iterator it = _teamMap.find(team);
+			if(it == _teamMap.end())
+			{
+				std::vector< Role* > tmpList = std::vector< Role* >();
+				tmpList.push_back(role);
+				_teamMap.insert(std::map< int, std::vector< Role* > >::value_type(team, tmpList));
+			}
+			else
+			{
+				std::vector< Role* >* tmpList = &it->second;
+				tmpList->push_back(role);
+			}
 		}
 	}
 }
@@ -410,7 +428,24 @@ void BattleScene::removeDisplay(Sprite* obj)
 		_displayList.erase(index);
 		if(dynamic_cast<Role*>(obj))
 		{
-			_characterLayer->removeChild(obj);
+			Role* role = dynamic_cast<Role*>(obj);
+			_characterLayer->removeChild(role);
+			
+			int team = role->getTeam();
+			std::map< int, std::vector< Role* > >::iterator it = _teamMap.find(team);
+			if(it != _teamMap.end())
+			{
+				std::vector< Role* > tmpList = it->second;
+				std::vector< Role* >::iterator i = std::find(tmpList.begin(), tmpList.end(), role);
+				if(i != tmpList.end())
+				{
+					tmpList.erase(i);
+					if(tmpList.size() == 0)
+					{
+						_teamMap.erase(it);
+					}
+				}
+			}
 		}
 	}
 }

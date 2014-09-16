@@ -31,6 +31,14 @@ public:
 	void setBackWalk(bool);
 	bool getBackWalk() { return _isBackWalk; };
 	int getId() { return _id; };
+	void setTeam(int value)
+	{
+		_team = value;
+	};
+	int getTeam()
+	{
+		return _team;
+	};
 protected:
 	Role(int);
 	~Role(void);
@@ -39,6 +47,7 @@ protected:
 private:
 	RoleData* _data;
 	int _id;
+	int _team;
     bool _isFocused;
 	bool _isBackWalk;
 	BattleScene* _scene;

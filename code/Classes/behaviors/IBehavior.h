@@ -17,6 +17,7 @@ public:
     virtual ~IBehavior(void) {};
     
     virtual void update(float delta) = 0;
+	virtual void updatePosition(float delta) = 0;
 };
 
 #endif /* defined(__Sanguo__IBehavior__) */
