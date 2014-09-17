@@ -4,6 +4,7 @@
 
 #define BACKGROUND_OFFSETRATE .5f
 #define FOREGROUND_OFFSETRATE 2.f
+#define MAX_AI_WAITING_TIME 1.f
 
 enum RoleTeam
 {

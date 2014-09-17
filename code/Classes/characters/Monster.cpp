@@ -8,7 +8,7 @@ using namespace rapidjson;
 
 Monster::Monster(int id):Role(id)
 {
-    setBehavior(new MonsterBehavior());
+    //setBehavior(new MonsterBehavior());
 }
 
 

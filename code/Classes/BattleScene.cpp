@@ -9,6 +9,8 @@
 #include "characters/RoleData.h"
 #include "BattleRoundData.h"
 #include "BattleMonsterData.h"
+#include "behaviors/MonsterBehavior.h"
+#include "behaviors/ai/AIAutoTrack.h"
 
 BattleScene* BattleScene::_instance = nullptr;
 
@@ -306,6 +308,9 @@ void BattleScene::loadRound(int round)
 					loadRoleAnimation(StringUtils::format("images/roles/%i/%i.json", monsterData->id, monsterData->id));
 
 					auto m = Monster::createWithJson(StringUtils::format("config/monsters/%i.json", monsterData->id));
+					auto b = new MonsterBehavior();
+					b->addAI(new AIAutoTrack());
+					m->setBehavior(b);
 					m->setTeam(RoleTeam::MONSTER);
 					addDisplay(m);
 					m->setWorldPosition(monsterData->x, monsterData->y);

@@ -13,15 +13,17 @@
 #include "BattleControllPanel.h"
 #include "../characters/Monster.h"
 #include "../characters/Role.h"
+#include "../define.h"
+#include "ai/IAI.h"
 
 MonsterBehavior::MonsterBehavior():
 	_target(nullptr),
-	_locked(nullptr),
-	_targetPosition(Point(0, 0))
+	_locked(nullptr)
 {
 	_scene = BattleScene::getInstance();
 	_halfScreenWidth = GlobalVars::scene_width >> 1;
 	_halfScreenHeight = GlobalVars::scene_height >> 1;
+	_aiList = std::vector<IAI*>();
 }
 
 MonsterBehavior::~MonsterBehavior()
@@ -48,47 +50,10 @@ void MonsterBehavior::updateAI(float delta)
 		{
 			return;
 		}
-		if(!_locked)
+
+		for(auto ai : _aiList)
 		{
-			//选取敌对阵营离自己最近的角色锁定
-			std::map< int, std::vector< Role* > > teamMap = _scene->getTeamMap();
-			int team = !_target->getTeam();
-			std::map< int, std::vector< Role* > >::iterator it = teamMap.find(team);
-			if(it != teamMap.end())
-			{
-				std::vector< Role* > tmpList = it->second;
-				float minDistance = FLT_MAX;
-				Role* role = nullptr;
-				for(auto item : tmpList)
-				{
-					Point p1 = _target->getWorldPosition();
-					Point p2 = item->getWorldPosition();
-					float d = p1.distance(p2);
-					if(d < minDistance)
-					{
-						minDistance = d;
-						role = item;
-					}
-				}
-				_locked = role;
-			}
-		}
-		else
-		{
-			Point p1 = _target->getWorldPosition();
-			Point p2 = _locked->getWorldPosition();
-			if(p1 != p2)
-			{
-				Point p = p2 - p1;
-				float angle = p.getAngle();
-				float x = p1.x + _target->getSpeed() * cosf(angle) * delta;
-				float y = p1.y + _target->getSpeed() * sinf(angle) * delta;
-				if(abs(p2.x - x) < 10.f)
-					x = p2.x;
-				if(abs(p2.y - y) < 10.f)
-					y = p2.y;
-				_target->setWorldPosition(x, y);
-			}
+			ai->update(delta);
 		}
 	}
 }
@@ -121,4 +86,29 @@ void MonsterBehavior::updatePosition(float delta)
 void MonsterBehavior::setTarget(Monster* value)
 {
     _target = value;
+	for(auto ai : _aiList)
+	{
+		ai->setTarget(_target);
+	}
+}
+
+void MonsterBehavior::addAI(IAI* value)
+{
+	std::vector<IAI*>::iterator it = std::find(_aiList.begin(), _aiList.end(), value);
+	if(it == _aiList.end())
+	{
+		value->setTarget(_target);
+		_aiList.push_back(value);
+	}
+}
+
+void MonsterBehavior::removeAI(IAI* value)
+{
+	std::vector<IAI*>::iterator it = std::find(_aiList.begin(), _aiList.end(), value);
+	if(it != _aiList.end())
+	{
+		_aiList.erase(it);
+		delete *it;
+		*it = nullptr;
+	}
 }

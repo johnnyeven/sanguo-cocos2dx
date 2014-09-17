@@ -10,6 +10,7 @@
 #define __Sanguo__IAutoAI__
 #pragma once
 
+class IAI;
 class IAutoAI
 {
 public:
@@ -17,6 +18,8 @@ public:
     virtual ~IAutoAI(void) {};
     
 	virtual void updateAI(float delta) = 0;
+	virtual void addAI(IAI*) = 0;
+	virtual void removeAI(IAI*) = 0;
 };
 
 #endif /* defined(__Sanguo__IAutoAI__) */
