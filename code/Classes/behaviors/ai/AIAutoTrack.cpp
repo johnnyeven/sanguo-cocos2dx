@@ -32,7 +32,6 @@ void AIAutoTrack::update(float delta)
 	{
 		if(!_locked)
 		{
-			//选取敌对阵营离自己最近的角色锁定
 			std::map< int, std::vector< Role* > > teamMap = _scene->getTeamMap();
 			int team = !_target->getTeam();
 			std::map< int, std::vector< Role* > >::iterator it = teamMap.find(team);
@@ -64,8 +63,8 @@ void AIAutoTrack::update(float delta)
 				_maxAIWaitingTime -= delta;
 				return;
 			}
-			
-			if(p1 != p2)
+			Point p = p2 - p1;
+			if(p.length() > 5.f)
 			{
 				Point p = p2 - p1;
 				float angle = p.getAngle();
@@ -73,10 +72,10 @@ void AIAutoTrack::update(float delta)
 				float offsetY = _target->getSpeed() * sinf(angle) * delta;
 				float x = p1.x + offsetX;
 				float y = p1.y + offsetY;
-				if(abs(p2.x - x) < offsetX)
-					x = p2.x;
-				if(abs(p2.y - y) < offsetY)
-					y = p2.y;
+//				if(abs(p2.x - x) < offsetX)
+//					x = p2.x;
+//				if(abs(p2.y - y) < offsetY)
+//					y = p2.y;
 				_target->setWorldPosition(x, y);
 			}
 		}
