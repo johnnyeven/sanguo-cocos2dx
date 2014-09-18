@@ -104,6 +104,10 @@ void MonsterBehavior::setTarget(Monster* value)
 void MonsterBehavior::setLocked(Role* value)
 {
 	_locked = value;
+	for(auto ai : _aiList)
+	{
+		ai->setLocked(_locked);
+	}
 }
 
 Role* MonsterBehavior::getLocked()

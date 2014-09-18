@@ -17,6 +17,7 @@ public:
 	
 	virtual void update(float delta);
 	virtual void setTarget(Role*);
+	virtual void setLocked(Role*);
 	virtual void setBehavior(IBehavior*);
 	virtual int getPriority();
 	virtual void setPriority(int);

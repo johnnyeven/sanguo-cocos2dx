@@ -33,6 +33,11 @@ void AIAutoTrack::setTarget(Role* value)
 	_target = value;
 }
 
+void AIAutoTrack::setLocked(Role* value)
+{
+	_locked = value;
+}
+
 void AIAutoTrack::setBehavior(IBehavior* b)
 {
 	if(dynamic_cast<IAILockable*>(b))

@@ -27,12 +27,29 @@ AIAutoAttackActive::~AIAutoAttackActive(void)
 
 void AIAutoAttackActive::update(float delta)
 {
-
+	if(_target && _locked)
+	{
+		float attackRange = _target->getAttackRange();
+		Point p1 = _target->getWorldPosition();
+		Point p2 = _locked->getWorldPosition();
+		float d = p1.distance(p2);
+		if(d <= attackRange)
+		{
+			//start attack
+			int i = rand() % 2 + 4;
+			_target->setAction(RoleAction(i));
+		}
+	}
 }
 
 void AIAutoAttackActive::setTarget(Role* value)
 {
 	_target = value;
+}
+
+void AIAutoAttackActive::setLocked(Role* value)
+{
+	_locked = value;
 }
 
 void AIAutoAttackActive::setBehavior(IBehavior* b)
