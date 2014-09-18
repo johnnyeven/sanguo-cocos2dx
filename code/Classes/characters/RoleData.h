@@ -21,6 +21,7 @@ public:
 	float speed;	//行走速度
 	float health;	//生命
 	float healthMax;	//最大生命
+	float attackRange;	//攻击距离
 	Point worldPosition;	//坐标
 };
 

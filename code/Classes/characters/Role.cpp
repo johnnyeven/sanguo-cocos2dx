@@ -58,6 +58,16 @@ float Role::getHealthMax()
     return _data->healthMax;
 }
 
+float Role::getAttackRange()
+{
+	return _data->attackRange;
+}
+
+void Role::setAttackRange(float value)
+{
+	_data->attackRange = value;
+}
+
 void Role::setAction(RoleAction value)
 {
 	if(_action != value)
