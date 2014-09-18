@@ -16,6 +16,14 @@
 #include "../define.h"
 #include "ai/IAI.h"
 
+struct SDescendingSort
+{
+	bool operator() (IAI*& obj1, IAI*& obj2)
+	{
+		return obj1->getPriority() > obj2->getPriority();
+	}
+};
+
 MonsterBehavior::MonsterBehavior():
 	_target(nullptr),
 	_locked(nullptr)
@@ -35,6 +43,7 @@ void MonsterBehavior::update(float delta)
 {
 	updateAI(delta);
 	updatePosition(delta);
+	faceToLocked();
 }
 
 void MonsterBehavior::updateAI(float delta)
@@ -92,13 +101,26 @@ void MonsterBehavior::setTarget(Monster* value)
 	}
 }
 
+void MonsterBehavior::setLocked(Role* value)
+{
+	_locked = value;
+}
+
+Role* MonsterBehavior::getLocked()
+{
+	return _locked;
+}
+
 void MonsterBehavior::addAI(IAI* value)
 {
 	std::vector<IAI*>::iterator it = std::find(_aiList.begin(), _aiList.end(), value);
 	if(it == _aiList.end())
 	{
 		value->setTarget(_target);
+		value->setBehavior(this);
 		_aiList.push_back(value);
+		
+		std::sort(_aiList.begin(), _aiList.end(), SDescendingSort());
 	}
 }
 
@@ -110,5 +132,22 @@ void MonsterBehavior::removeAI(IAI* value)
 		_aiList.erase(it);
 		delete *it;
 		*it = nullptr;
+	}
+}
+
+void MonsterBehavior::faceToLocked()
+{
+	if(_target && _locked)
+	{
+		Point p1 = _target->getWorldPosition();
+		Point p2 = _locked->getWorldPosition();
+		if(p1.x < p2.x)
+		{
+			_target->setFlippedX(false);
+		}
+		else
+		{
+			_target->setFlippedX(true);
+		}
 	}
 }

@@ -1,19 +1,17 @@
-#ifndef _AIAutoTrack_H_
-#define _AIAutoTrack_H_
+#ifndef _AIAutoAttackActive_H_
+#define _AIAutoAttackActive_H_
 #pragma once
 
 #include "IAI.h"
 
-class BattleScene;
-class Role;
 class IAILockable;
-class AIAutoTrack:
+class AIAutoAttackActive:
 	public IAI
 {
 public:
-	AIAutoTrack(void);
-	AIAutoTrack(int);
-	~AIAutoTrack(void);
+	AIAutoAttackActive(void);
+	AIAutoAttackActive(int);
+	~AIAutoAttackActive(void);
 	
 	virtual void update(float delta);
 	virtual void setTarget(Role*);
@@ -21,11 +19,9 @@ public:
 	virtual int getPriority();
 	virtual void setPriority(int);
 private:
-	BattleScene* _scene;
 	Role* _target;
 	Role* _locked;
 	IAILockable* _behavior;
-	float _maxAIWaitingTime;
 	int _priority;
 };
 

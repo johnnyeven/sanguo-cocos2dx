@@ -2,15 +2,27 @@
 #include "../../BattleScene.h"
 #include "../../characters/Role.h"
 #include "../../define.h"
+#include "../../behaviors/IBehavior.h"
+#include "IAILockable.h"
 
 AIAutoTrack::AIAutoTrack(void):
 	_target(nullptr),
-	_locked(nullptr)
+	_locked(nullptr),
+	_behavior(nullptr)
 {
 	_scene = BattleScene::getInstance();
 	_maxAIWaitingTime = MAX_AI_WAITING_TIME;
 }
 
+AIAutoTrack::AIAutoTrack(int priority):
+	_target(nullptr),
+	_locked(nullptr),
+	_behavior(nullptr),
+	_priority(priority)
+{
+	_scene = BattleScene::getInstance();
+	_maxAIWaitingTime = MAX_AI_WAITING_TIME;
+}
 
 AIAutoTrack::~AIAutoTrack(void)
 {
@@ -21,14 +33,32 @@ void AIAutoTrack::setTarget(Role* value)
 	_target = value;
 }
 
-void AIAutoTrack::setLocked(Role* value)
+void AIAutoTrack::setBehavior(IBehavior* b)
 {
-	_locked = value;
+	if(dynamic_cast<IAILockable*>(b))
+	{
+		_behavior = dynamic_cast<IAILockable*>(b);
+		_locked = _behavior->getLocked();
+	}
+	else
+	{
+		_behavior = nullptr;
+	}
+}
+
+int AIAutoTrack::getPriority()
+{
+	return _priority;
+}
+
+void AIAutoTrack::setPriority(int value)
+{
+	_priority = value;
 }
 
 void AIAutoTrack::update(float delta)
 {
-	if(_target)
+	if(_target && _behavior)
 	{
 		if(!_locked)
 		{
@@ -52,6 +82,7 @@ void AIAutoTrack::update(float delta)
 					}
 				}
 				_locked = role;
+				_behavior->setLocked(role);
 			}
 		}
 		else
@@ -66,17 +97,18 @@ void AIAutoTrack::update(float delta)
 			Point p = p2 - p1;
 			if(p.length() > 5.f)
 			{
+				_target->setAction(RoleAction::RUN);
 				Point p = p2 - p1;
 				float angle = p.getAngle();
 				float offsetX = _target->getSpeed() * cosf(angle) * delta;
 				float offsetY = _target->getSpeed() * sinf(angle) * delta;
 				float x = p1.x + offsetX;
 				float y = p1.y + offsetY;
-//				if(abs(p2.x - x) < offsetX)
-//					x = p2.x;
-//				if(abs(p2.y - y) < offsetY)
-//					y = p2.y;
 				_target->setWorldPosition(x, y);
+			}
+			else
+			{
+				_target->setAction(RoleAction::STAND);
 			}
 		}
 	}

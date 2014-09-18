@@ -13,6 +13,7 @@
 #include "cocos2d.h"
 #include "IBehavior.h"
 #include "IAutoAI.h"
+#include "ai/IAILockable.h"
 
 USING_NS_CC;
 
@@ -21,7 +22,9 @@ class Role;
 class BattleScene;
 class IAI;
 class MonsterBehavior:
-	public IBehavior, IAutoAI
+	public IBehavior,
+	public IAutoAI,
+	public IAILockable
 {
 public:
     MonsterBehavior(void);
@@ -34,6 +37,8 @@ public:
 	virtual void removeAI(IAI*);
     void setTarget(Monster*);
     Monster* getTarget() { return _target; };
+	virtual void setLocked(Role*);
+	virtual Role* getLocked();
 private:
     Monster* _target;
 	Role* _locked;
@@ -41,6 +46,8 @@ private:
 	float _halfScreenWidth;
 	float _halfScreenHeight;
 	std::vector<IAI*> _aiList;
+	
+	void faceToLocked();
 };
 
 #endif /* defined(__Sanguo__HeroBehavior__) */

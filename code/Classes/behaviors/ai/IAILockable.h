@@ -6,10 +6,8 @@ class Role;
 class IAILockable
 {
 public:
-	IAILockable(void) {};
-	virtual ~IAILockable(void) {};
-
-	virtual void setLocked(Role*) = 0;
+	virtual void setLocked(Role*) {};
+	virtual Role* getLocked() = 0;
 };
 
 #endif

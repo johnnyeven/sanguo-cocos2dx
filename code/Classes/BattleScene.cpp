@@ -11,6 +11,7 @@
 #include "BattleMonsterData.h"
 #include "behaviors/MonsterBehavior.h"
 #include "behaviors/ai/AIAutoTrack.h"
+#include "behaviors/ai/AIAutoAttackActive.h"
 
 BattleScene* BattleScene::_instance = nullptr;
 
@@ -309,7 +310,8 @@ void BattleScene::loadRound(int round)
 
 					auto m = Monster::createWithJson(StringUtils::format("config/monsters/%i.json", monsterData->id));
 					auto b = new MonsterBehavior();
-					b->addAI(new AIAutoTrack());
+					b->addAI(new AIAutoTrack(999));
+					b->addAI(new AIAutoAttackActive(998));
 					m->setBehavior(b);
 					m->setTeam(RoleTeam::MONSTER);
 					addDisplay(m);
