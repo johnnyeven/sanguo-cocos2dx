@@ -248,7 +248,7 @@
             <key>size</key>
             <string>{512,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4bd69176f5adc7fefd565f2f86aa0ab9:4374fdc3a9c790ca1de886acf42d85d7:68097f6d84568dc9072fe0c672f483cc$</string>
+            <string>$TexturePacker:SmartUpdate:b4421a688b251fb2e4b07653f63f660c:4374fdc3a9c790ca1de886acf42d85d7:68097f6d84568dc9072fe0c672f483cc$</string>
             <key>textureFileName</key>
             <string>run.pvr.gz</string>
         </dict>

@@ -413,13 +413,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>p1_s2_attack4.png</string>
+            <string>p1_s2_attack4.pvr.gz</string>
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
             <string>$TexturePacker:SmartUpdate:68a5fd70ae555f9bf04ae4fcf354732a$</string>
             <key>textureFileName</key>
-            <string>p1_s2_attack4.png</string>
+            <string>p1_s2_attack4.pvr.gz</string>
         </dict>
     </dict>
 </plist>

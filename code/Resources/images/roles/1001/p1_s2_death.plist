@@ -426,13 +426,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>p1_s2_death.png</string>
+            <string>p1_s2_death.pvr.gz</string>
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
             <string>$TexturePacker:SmartUpdate:800a5a06f4eaf92ccc4dc031ed218b6e$</string>
             <key>textureFileName</key>
-            <string>p1_s2_death.png</string>
+            <string>p1_s2_death.pvr.gz</string>
         </dict>
     </dict>
 </plist>

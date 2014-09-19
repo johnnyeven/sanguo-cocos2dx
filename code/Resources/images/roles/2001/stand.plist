@@ -222,7 +222,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a2f6d79b79e16da653cacfe165b2b54f:fe4b150902abd8f3cc377bd84d857e9f:359640a2e8e61c804661e0160b9729f0$</string>
+            <string>$TexturePacker:SmartUpdate:26aa234ccb5f2fb6a429f2c0bd9f3482:fe4b150902abd8f3cc377bd84d857e9f:359640a2e8e61c804661e0160b9729f0$</string>
             <key>textureFileName</key>
             <string>stand.pvr.gz</string>
         </dict>

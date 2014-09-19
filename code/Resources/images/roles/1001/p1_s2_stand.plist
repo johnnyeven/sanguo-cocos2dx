@@ -231,13 +231,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>p1_s2_stand.png</string>
+            <string>p1_s2_stand.pvr.gz</string>
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
             <string>$TexturePacker:SmartUpdate:64aacc400da3e0625c9c2586f2268e56$</string>
             <key>textureFileName</key>
-            <string>p1_s2_stand.png</string>
+            <string>p1_s2_stand.pvr.gz</string>
         </dict>
     </dict>
 </plist>

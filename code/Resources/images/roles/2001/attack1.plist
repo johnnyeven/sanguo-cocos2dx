@@ -404,7 +404,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7514e746a1ac311eb97bb07af4ea67ff:57941d7c4a034cbb47f627c76c8d2a78:b864b9f4f0ce54f2214df3fdbb53c4ce$</string>
+            <string>$TexturePacker:SmartUpdate:8fe02777451d4a02f6927d2e27ae5ed9:57941d7c4a034cbb47f627c76c8d2a78:b864b9f4f0ce54f2214df3fdbb53c4ce$</string>
             <key>textureFileName</key>
             <string>attack1.pvr.gz</string>
         </dict>
