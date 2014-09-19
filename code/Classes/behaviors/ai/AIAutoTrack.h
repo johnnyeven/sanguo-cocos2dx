@@ -15,7 +15,7 @@ public:
 	AIAutoTrack(int);
 	~AIAutoTrack(void);
 	
-	virtual void update(float delta);
+	virtual bool update(float delta);
 	virtual void setTarget(Role*);
 	virtual void setLocked(Role*);
 	virtual void setBehavior(IBehavior*);

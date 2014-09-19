@@ -3,7 +3,8 @@
 
 RoleData::RoleData(void):
 roleName(nullptr),
-worldPosition(Point(0, 0))
+worldPosition(Point(0, 0)),
+attackRateCurrent(0.f)
 {
 	
 }

@@ -68,6 +68,26 @@ void Role::setAttackRange(float value)
 	_data->attackRange = value;
 }
 
+float Role::getAttackRate()
+{
+	return _data->attackRate;
+}
+
+void Role::setAttackRate(float value)
+{
+	_data->attackRate = value;
+}
+
+float Role::getAttackRateCurrent()
+{
+	return _data->attackRateCurrent;
+}
+
+void Role::setAttackRateCurrent(float value)
+{
+	_data->attackRateCurrent = value;
+}
+
 void Role::setAction(RoleAction value)
 {
 	if(_action != value)

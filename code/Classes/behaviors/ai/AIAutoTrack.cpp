@@ -61,10 +61,19 @@ void AIAutoTrack::setPriority(int value)
 	_priority = value;
 }
 
-void AIAutoTrack::update(float delta)
+bool AIAutoTrack::update(float delta)
 {
 	if(_target && _behavior)
 	{
+		RoleAction a = _target->getAction();
+		if(a == RoleAction::ATTACK1 ||
+			 a == RoleAction::ATTACK2 ||
+			 a == RoleAction::ATTACK3 ||
+			 a == RoleAction::ATTACK4 ||
+			 a == RoleAction::ATTACK5)
+		{
+			return true;
+		}
 		if(!_locked)
 		{
 			std::map< int, std::vector< Role* > > teamMap = _scene->getTeamMap();
@@ -97,7 +106,7 @@ void AIAutoTrack::update(float delta)
 			if(_maxAIWaitingTime > 0)
 			{
 				_maxAIWaitingTime -= delta;
-				return;
+				return false;
 			}
 			Point p = p2 - p1;
 			if(p.length() > 5.f)
@@ -117,4 +126,6 @@ void AIAutoTrack::update(float delta)
 			}
 		}
 	}
+
+	return true;
 }

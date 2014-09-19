@@ -50,19 +50,12 @@ void MonsterBehavior::updateAI(float delta)
 {
 	if(_target)
 	{
-		RoleAction a = _target->getAction();
-		if(a == RoleAction::ATTACK1 ||
-			 a == RoleAction::ATTACK2 ||
-			 a == RoleAction::ATTACK3 ||
-			 a == RoleAction::ATTACK4 ||
-			 a == RoleAction::ATTACK5)
-		{
-			return;
-		}
-
 		for(auto ai : _aiList)
 		{
-			ai->update(delta);
+			if(!ai->update(delta))
+			{
+				break;
+			}
 		}
 	}
 }

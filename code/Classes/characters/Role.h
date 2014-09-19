@@ -23,6 +23,10 @@ public:
 	void setHealthMax(float);
 	float getAttackRange();
 	void setAttackRange(float);
+	float getAttackRate();
+	void setAttackRate(float);
+	float getAttackRateCurrent();
+	void setAttackRateCurrent(float);
 	RoleAction getAction() { return _action; };
 	virtual void setAction(RoleAction);
 	Point& getWorldPosition();

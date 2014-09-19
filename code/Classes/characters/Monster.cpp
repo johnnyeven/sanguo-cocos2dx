@@ -55,6 +55,7 @@ Monster* Monster::createWithJson(const std::string& filename)
 							s->setAnchorPoint(Vec2(anchor["x"].GetDouble(), anchor["y"].GetDouble()));
 							s->setSpeed(doc["speed"].GetDouble());
 							s->setAttackRange(doc["attackRange"].GetDouble());
+							s->setAttackRate(doc["attackRate"].GetDouble());
 							s->autorelease();
 							return s;
 						}

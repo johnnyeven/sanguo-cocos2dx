@@ -25,21 +25,37 @@ AIAutoAttackActive::~AIAutoAttackActive(void)
 }
 
 
-void AIAutoAttackActive::update(float delta)
+bool AIAutoAttackActive::update(float delta)
 {
 	if(_target && _locked)
 	{
+		_target->setAttackRateCurrent(_target->getAttackRateCurrent() - delta);
+		RoleAction a = _target->getAction();
+		if(a == RoleAction::ATTACK1 ||
+			 a == RoleAction::ATTACK2 ||
+			 a == RoleAction::ATTACK3 ||
+			 a == RoleAction::ATTACK4 ||
+			 a == RoleAction::ATTACK5)
+		{
+			return true;
+		}
 		float attackRange = _target->getAttackRange();
 		Point p1 = _target->getWorldPosition();
 		Point p2 = _locked->getWorldPosition();
 		float d = p1.distance(p2);
 		if(d <= attackRange)
 		{
-			//start attack
-			int i = rand() % 2 + 4;
-			_target->setAction(RoleAction(i));
+			if(_target->getAttackRateCurrent() <= 0)
+			{
+				//start attack
+				_target->setAttackRateCurrent(_target->getAttackRate());
+				int i = rand() % 2 + 4;
+				_target->setAction(RoleAction(i));
+			}
+			return false;
 		}
 	}
+	return true;
 }
 
 void AIAutoAttackActive::setTarget(Role* value)

@@ -310,8 +310,8 @@ void BattleScene::loadRound(int round)
 
 					auto m = Monster::createWithJson(StringUtils::format("config/monsters/%i.json", monsterData->id));
 					auto b = new MonsterBehavior();
-					b->addAI(new AIAutoTrack(999));
-					b->addAI(new AIAutoAttackActive(998));
+					b->addAI(new AIAutoTrack(998));
+					b->addAI(new AIAutoAttackActive(999));
 					m->setBehavior(b);
 					m->setTeam(RoleTeam::MONSTER);
 					addDisplay(m);

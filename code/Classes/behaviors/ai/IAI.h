@@ -10,7 +10,7 @@ public:
 	IAI(void) {};
 	virtual ~IAI(void) {};
 
-	virtual void update(float delta) = 0;
+	virtual bool update(float delta) = 0;
 	virtual void setTarget(Role*) = 0;
 	virtual void setLocked(Role*) = 0;
 	virtual void setBehavior(IBehavior*) = 0;

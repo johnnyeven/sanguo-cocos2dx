@@ -22,6 +22,10 @@ public:
 	float health;	//生命
 	float healthMax;	//最大生命
 	float attackRange;	//攻击距离
+	/* 攻击速度 秒/次 */
+	float attackRate;
+	/* 当前攻速的触发器 */
+	float attackRateCurrent;
 	Point worldPosition;	//坐标
 };
 
