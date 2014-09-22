@@ -12,6 +12,7 @@
 #include "behaviors/MonsterBehavior.h"
 #include "behaviors/ai/AIAutoTrack.h"
 #include "behaviors/ai/AIAutoAttackActive.h"
+#include "BattleLogicManager.h"
 
 BattleScene* BattleScene::_instance = nullptr;
 
@@ -110,6 +111,8 @@ void BattleScene::update(float delta)
 	}
 
 	auto camera = SceneCamera::getInstance();
+
+	BattleLogicManager::getInstance()->update(delta);
 }
 
 void BattleScene::updateMap(float delta)

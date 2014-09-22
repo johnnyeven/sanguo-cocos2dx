@@ -3,7 +3,8 @@
 #include "../../define.h"
 #include "../../behaviors/IBehavior.h"
 #include "IAILockable.h"
-
+#include "../../BattleCommandData.h"
+#include "../../BattleLogicManager.h"
 
 AIAutoAttackActive::AIAutoAttackActive(void):
 	_target(nullptr),
@@ -51,6 +52,12 @@ bool AIAutoAttackActive::update(float delta)
 				_target->setAttackRateCurrent(_target->getAttackRate());
 				int i = rand() % 2 + 4;
 				_target->setAction(RoleAction(i));
+
+				BattleCommandData* data = new BattleCommandData();
+				data->sender = _target;
+				data->target = _locked;
+				data->delay = .5f;
+				BattleLogicManager::getInstance()->addCommand(data);
 			}
 			return false;
 		}
