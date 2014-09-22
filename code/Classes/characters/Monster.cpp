@@ -53,6 +53,12 @@ Monster* Monster::createWithJson(const std::string& filename)
 						{
 							s->setData(new RoleData());
 							s->setAnchorPoint(Vec2(anchor["x"].GetDouble(), anchor["y"].GetDouble()));
+							s->setAtk(doc["atk"].GetDouble());
+							s->setMatk(doc["matk"].GetDouble());
+							s->setDef(doc["def"].GetDouble());
+							s->setMdef(doc["mdef"].GetDouble());
+							s->setFlee(doc["flee"].GetDouble());
+							s->setCrit(doc["crit"].GetDouble());
 							s->setSpeed(doc["speed"].GetDouble());
 							s->setAttackRange(doc["attackRange"].GetDouble());
 							s->setAttackRate(doc["attackRate"].GetDouble());

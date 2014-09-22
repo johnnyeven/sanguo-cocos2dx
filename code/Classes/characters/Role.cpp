@@ -28,6 +28,66 @@ void Role::setData(RoleData* data)
 	setWorldPosition(data->worldPosition);
 }
 
+void Role::setAtk(float value)
+{
+	_data->atk = value;
+}
+
+float Role::getAtk()
+{
+    return _data->atk;
+}
+
+void Role::setMatk(float value)
+{
+	_data->matk = value;
+}
+
+float Role::getMatk()
+{
+    return _data->matk;
+}
+
+void Role::setDef(float value)
+{
+	_data->def = value;
+}
+
+float Role::getDef()
+{
+    return _data->def;
+}
+
+void Role::setMdef(float value)
+{
+	_data->mdef = value;
+}
+
+float Role::getMdef()
+{
+    return _data->mdef;
+}
+
+void Role::setFlee(float value)
+{
+	_data->flee = value;
+}
+
+float Role::getFlee()
+{
+    return _data->flee;
+}
+
+void Role::setCrit(float value)
+{
+	_data->crit = value;
+}
+
+float Role::getCrit()
+{
+    return _data->crit;
+}
+
 void Role::setSpeed(float value)
 {
 	_data->speed = value;

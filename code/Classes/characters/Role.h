@@ -15,6 +15,18 @@ class Role :
 public:
 	void setData(RoleData*);
 	RoleData* getData() { return _data; };
+	float getAtk();
+	void setAtk(float);
+	float getMatk();
+	void setMatk(float);
+	float getDef();
+	void setDef(float);
+	float getMdef();
+	void setMdef(float);
+	float getFlee();
+	void setFlee(float);
+	float getCrit();
+	void setCrit(float);
 	float getSpeed();
 	void setSpeed(float);
 	float getHealth();
