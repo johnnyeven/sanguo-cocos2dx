@@ -1,5 +1,7 @@
 #include "BattleLogicManager.h"
 #include "BattleCommandData.h"
+#include "characters/Role.h"
+#include "define.h"
 
 BattleLogicManager* BattleLogicManager::_instance = nullptr;
 
@@ -24,6 +26,10 @@ void BattleLogicManager::update(float delta)
 		auto item = _commandList.at(i);
 		if(item->delay <= _timer)
 		{
+			if(item->type == BattleCommandType::ATTACK)
+			{
+				handleAttackCommand(item->sender, item->target);
+			}
 			removeCommand(item);
 			log("trigger");
 		}
@@ -75,4 +81,27 @@ void BattleLogicManager::removeCommand(int index)
 void BattleLogicManager::removeCommands()
 {
 	_commandList.clear();
+}
+
+void BattleLogicManager::handleAttackCommand(Role* sender, Vector<Role*>& target)
+{
+	float atk = sender->getAtk();
+
+	for(auto t : target)
+	{
+		float def = t->getDef();
+		float damage = std::max(1.f, atk - def);
+
+		float targetHealth = t->getHealth();
+		log("damage: %f", damage);
+		if(targetHealth <= damage)
+		{
+			//dead
+			t->setAction(RoleAction::DEATH);
+		}
+		else
+		{
+			t->setHealth(targetHealth - damage);
+		}
+	}
 }

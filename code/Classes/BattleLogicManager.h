@@ -7,6 +7,7 @@
 USING_NS_CC;
 
 class BattleCommandData;
+class Role;
 class BattleLogicManager
 {
 public:
@@ -24,6 +25,8 @@ private:
 
 	BattleLogicManager(void);
 	~BattleLogicManager(void);
+
+	void handleAttackCommand(Role* sender, Vector<Role*>& target);
 };
 
 #endif

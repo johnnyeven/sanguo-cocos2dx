@@ -60,6 +60,8 @@ Monster* Monster::createWithJson(const std::string& filename)
 							s->setFlee(doc["flee"].GetDouble());
 							s->setCrit(doc["crit"].GetDouble());
 							s->setSpeed(doc["speed"].GetDouble());
+							s->setHealthMax(doc["health"].GetDouble());
+							s->setHealth(s->getHealth());
 							s->setAttackRange(doc["attackRange"].GetDouble());
 							s->setAttackRate(doc["attackRate"].GetDouble());
 							s->autorelease();

@@ -36,7 +36,7 @@ enum BehaviorMode
 
 namespace GlobalConfig
 {
-	const std::string action[11] = {
+	const std::string action[12] = {
 		"",
 		"run",
 		"stand",
@@ -47,7 +47,8 @@ namespace GlobalConfig
 		"attack4",
 		"attack5",
 		"hit",
-		"win"
+		"win",
+		"death"
 	};
 };
 

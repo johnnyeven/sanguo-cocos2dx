@@ -2,6 +2,10 @@
 #define _BattleCommandData_H_
 #pragma once
 
+#include "cocos2d.h"
+
+USING_NS_CC;
+
 enum BattleCommandType
 {
 	COMMAND_UNDEFINED,
@@ -18,7 +22,7 @@ public:
 	/* 命令发送者 */
 	Role* sender;
 	/* 命令目标 */
-	Role* target;
+	Vector<Role*> target;
 	/* 延时触发 */
 	float delay;
 	/* 技能ID */
@@ -26,6 +30,8 @@ public:
 
 	BattleCommandData(void);
 	~BattleCommandData(void);
+
+	static BattleCommandData* createAttackCommand(Role* _sender, Role* _target, float _delay);
 };
 
 #endif

@@ -89,6 +89,10 @@ void BattleScene::onEnter()
 	addDisplay(s);
 	s->setData(new RoleData());
     s->setAnchorPoint(Vec2(.5f, .35f));
+	s->setAtk(190.f);
+	s->setDef(100.f);
+	s->setHealthMax(500.f);
+	s->setHealth(500.f);
 	s->setSpeed(300.f);
 	s->setWorldPosition(_roleStartX, _roleStartY);
     s->setAction(RoleAction::WAIT);

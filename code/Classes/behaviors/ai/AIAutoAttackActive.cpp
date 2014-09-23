@@ -30,9 +30,16 @@ bool AIAutoAttackActive::update(float delta)
 {
 	if(_target && _locked)
 	{
+		RoleAction lockedAction = _locked->getAction();
+		if(lockedAction == RoleAction::DEATH)
+		{
+			_locked = nullptr;
+			return true;
+		}
 		_target->setAttackRateCurrent(_target->getAttackRateCurrent() - delta);
 		RoleAction a = _target->getAction();
-		if(a == RoleAction::ATTACK1 ||
+		if(a == RoleAction::DEATH ||
+			 a == RoleAction::ATTACK1 ||
 			 a == RoleAction::ATTACK2 ||
 			 a == RoleAction::ATTACK3 ||
 			 a == RoleAction::ATTACK4 ||
@@ -53,10 +60,7 @@ bool AIAutoAttackActive::update(float delta)
 				int i = rand() % 2 + 4;
 				_target->setAction(RoleAction(i));
 
-				BattleCommandData* data = new BattleCommandData();
-				data->sender = _target;
-				data->target = _locked;
-				data->delay = .5f;
+				auto data = BattleCommandData::createAttackCommand(_target, _locked, .5f);
 				BattleLogicManager::getInstance()->addCommand(data);
 			}
 			return false;

@@ -174,9 +174,13 @@ void Role::setAction(RoleAction value)
 		{
 			runAction(CCRepeatForever::create(animate));
 		}
-		else
+		else if(index < 11)
 		{
 			runAction(CCSequence::create(animate, CallFunc::create(CC_CALLBACK_0(Role::restoreOriginalAnimation, this)), NULL));
+		}
+		else
+		{
+			runAction(animate);
 		}
 	}
 }

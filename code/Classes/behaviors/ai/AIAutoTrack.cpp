@@ -66,7 +66,8 @@ bool AIAutoTrack::update(float delta)
 	if(_target && _behavior)
 	{
 		RoleAction a = _target->getAction();
-		if(a == RoleAction::ATTACK1 ||
+		if(a == RoleAction::DEATH ||
+			 a == RoleAction::ATTACK1 ||
 			 a == RoleAction::ATTACK2 ||
 			 a == RoleAction::ATTACK3 ||
 			 a == RoleAction::ATTACK4 ||
@@ -101,6 +102,12 @@ bool AIAutoTrack::update(float delta)
 		}
 		else
 		{
+			RoleAction lockedAction = _locked->getAction();
+			if(lockedAction == RoleAction::DEATH)
+			{
+				_locked = nullptr;
+				return false;
+			}
 			Point p1 = _target->getWorldPosition();
 			Point p2 = _locked->getWorldPosition();
 			if(_maxAIWaitingTime > 0)
