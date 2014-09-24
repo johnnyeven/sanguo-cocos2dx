@@ -26,7 +26,7 @@ private:
 	BattleLogicManager(void);
 	~BattleLogicManager(void);
 
-	void handleAttackCommand(Role* sender, Vector<Role*>& target);
+	void handleAttackCommand(Role* sender, std::vector<Role*>& target);
 };
 
 #endif

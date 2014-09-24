@@ -125,6 +125,7 @@ void Monster::setAction(RoleAction value)
 		int index = (int)value;
 		std::string name = StringUtils::format("%i_%s", getId(), GlobalConfig::action[index].c_str());
 		CCAnimate* animate = CCAnimate::create(CCAnimationCache::getInstance()->getAnimation(name));
+		
 		if(index < 4)
 		{
 			runAction(CCRepeatForever::create(animate));

@@ -474,6 +474,10 @@ Point BattleScene::getScreenPosition(float x, float y) const
 
 void BattleScene::onBattleControlTouchBegan(Ref* object)
 {
+	if(_player->getAction() == RoleAction::DEATH)
+	{
+		return;
+	}
 	int i = rand() % 5 + 4;
 	_player->setAction(RoleAction(i));
 }

@@ -5,7 +5,7 @@ BattleCommandData::BattleCommandData(void):
 	type(BattleCommandType::COMMAND_UNDEFINED),
 	sender(nullptr)
 {
-	target = Vector<Role*>();
+	target = std::vector<Role*>();
 }
 
 
@@ -19,7 +19,7 @@ BattleCommandData* BattleCommandData::createAttackCommand(Role* _sender, Role* _
 	auto data = new BattleCommandData();
 	data->type = BattleCommandType::ATTACK;
 	data->sender = _sender;
-	data->target.pushBack(_target);
+	data->target.push_back(_target);
 	data->delay = _delay;
 
 	return data;

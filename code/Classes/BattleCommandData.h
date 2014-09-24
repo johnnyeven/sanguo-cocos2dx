@@ -14,6 +14,8 @@ enum BattleCommandType
 };
 
 class Role;
+class Skill;
+
 class BattleCommandData
 {
 public:
@@ -22,11 +24,11 @@ public:
 	/* 命令发送者 */
 	Role* sender;
 	/* 命令目标 */
-	Vector<Role*> target;
+	std::vector<Role*> target;
 	/* 延时触发 */
 	float delay;
-	/* 技能ID */
-	int skillId;
+	/* 技能 */
+	Skill* skill;
 
 	BattleCommandData(void);
 	~BattleCommandData(void);

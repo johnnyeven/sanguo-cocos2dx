@@ -83,7 +83,7 @@ void BattleLogicManager::removeCommands()
 	_commandList.clear();
 }
 
-void BattleLogicManager::handleAttackCommand(Role* sender, Vector<Role*>& target)
+void BattleLogicManager::handleAttackCommand(Role* sender, std::vector<Role*>& target)
 {
 	float atk = sender->getAtk();
 
